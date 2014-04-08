@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>Использование SSH туннеля для HTTP-траффика</h1>
+Пт 19 Март 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+        </div>
+	
+        <div><p>Некоторое время назад на моей работе резко ужесточили политику
+безопасности, перекрыв доступ ко множеству интернет-ресурсов, в том
+числе ко всем известным почтовым системам.</p>
+<p>Т.к. моя почта находится на GMail, я, также, однажды утром не смог
+отрыть свой почтовый ящик.</p>
+<p>Но, как водится, на каждый лом найдется другой лом покрепче. Так
+исторически сложилось, что у меня дома установлен сервер, работающий
+круглосуточно, который выполняет разные полезные функции, как то:</p>
+<ul class="simple">
+<li>Веб-сервер;</li>
+<li>Скачивание и раздача torrent-ов;</li>
+<li>Сетевое файловое хранилище;</li>
+<li>SVN-сервер для моих проектов;</li>
+<li>Backup для остальных компьютеров и много других мелких задач.</li>
+</ul>
+<p>Сам сервер не представляет особого интереса - это старенький компьютер,
+который работает под управлением openSUSE без поддержки графического
+режима. Мой домашний интернет-провайдер предоставляет каждому клиенту
+статический &quot;белый&quot; IP-адрес, благодаря чему я могу получить доступ к
+серверу из любого уголка земного шара.</p>
+<p>А теперь по делу. На сервере в числе прочих сервисов настроен
+SSH-сервер, который до этого я использовал для доступа к командной
+строке из внешнего мира. Причем, он настроен таким образом, что слушает
+не стандартный порт, а порт 443, который является единственным портом,
+который обычно открыт для пользователей.</p>
+<p>Протокол SSH, помимо доступа к командной строке удаленного компьютера,
+позволяет создать TCP -туннель для передачи любой информации (будь то
+файлы или HTTP траффик).</p>
+<p>Для открытия туннеля не нужно никакого дополнительного программного
+обеспечения, только sshd на серверной стороне и ssh-клиент на клиентском
+компьютере.</p>
+<p>Для соединения с сервером, выполните команду:</p>
+<p>[shell]ssh -ND localhost:1818 login&#64;remoteserver.ru -p 443[/shell]</p>
+<p>Параметр &quot;-D &nbsp;localhost:1818&quot; указывает локальный порт, который будет
+прослушивать ssh-клиент.</p>
+<p>&quot;<a class="reference external" href="mailto:login&#64;remoteserver.com">login&#64;remoteserver.com</a>&quot; указывает имя пользователя на удаленной системе
+и непосредственно адрес этой системы.</p>
+<p>&quot;-p 443&quot; указывает порт ssh-сервера на удаленной системе.</p>
+<p>После выполнения данной команды, необходимо произвести авторизацию,
+введя пароль удаленного пользователя.</p>
+<p>Для запуска ssh в background режиме, можно добавить параметр &quot;-f&quot;.</p>
+<p>Итак, соединение установлено. Теперь, для того, чтобы воспользоваться
+созданным туннелем, необходимо в настройках Вашего браузера указать
+SOCKS прокси-сервер с адресом &quot;localhost&quot; и портом &quot;1818&quot;, который был
+указан выше.</p>
+<p>Вот и все. Теперь весь траффик идет по шифрованному ssh-туннелю через
+удаленную машину.</p>
+</div>
+	
+        <hr>
+
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/otladochnyj-komplekt-ez430-chronos-ot-texas-instruments.html"><h1>Отладочный комплект eZ430-Chronos от Texas Instruments</h1></a>
+Ср 12 Октябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>Собственно говоря, новинкой эту отладку назвать сложно, я уже на
+протяжении, наверное, года знаю о ее существовании, однако, только
+сейчас мне удалось ее заполучить.</p>
+<p>Отладочное средство представляет собой полноценные спортивные наручные
+часы, которые построены на базе процессора CC430F6137, имеющего на борту
+беспроводной интерфейс передачи данных и множество других полезных
+плюшек.</p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/16/6424af.jpg"><img alt="Отладочный комплект Chronos" src="/uploads/images/00/00/01/2011/02/16/943355.jpg" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 1. Отладочный комплект Chronos от Texas Instruments</em></div>
+</div>
+</div>
+<p>Пожалуй, самым необычным свойством этих часов, отличающим их от любых
+других, является возможность полной смены прошивки встроенного
+микроконтроллера или модернизации прошивки, используемой по умолчанию.</p>
+<div class="line-block">
+<div class="line">Цена устройства составляет $49 у производителя, я же приобрел в осковском магазине за 2000 р.</div>
+<div class="line"><br /></div>
+</div>
+<div class="section" id="id1">
+<h2>Комплектация</h2>
+<p>Открыв коробку, Вы можете обнаружить в ней следующее содержимое:</p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/d6b1ba.jpg"><img alt="Комплектация набора" src="/uploads/images/00/00/01/2011/02/21/0c6c4d.jpg" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 2. Комплектация отладочного средства eZ430 Chronos</em></div>
+</div>
+</div>
+<ol class="arabic simple">
+<li>Собственно, сами наручные часы, полностью готовые к работе;</li>
+<li>Беспроводная точка доступа с интерфейсом USB для связи с персональным
+компьютером на базе CC1111;</li>
+<li>Отладочный интерфейс eZ430 (также с USB) для прошивки и отладки
+встроенного МК;</li>
+<li>Диск с программным обеспечением;</li>
+<li>Микроотвертка для сборки/разборки корпуса часов;</li>
+<li>Два запасных миниатюрных шурупчика, которые держат заднюю стальную
+крышку часов;</li>
+<li>Буклет с краткой инструкцией.</li>
+</ol>
+<p>Таким образом, для того, чтобы начать разработку собственных приложений
+для данного комплекта, никаких дополнительных средств не требуется - все
+уже предусмотрено производителем, вплоть до специальной миниатюрной
+отвертки.</p>
+</div>
+<div class="section" id="id2">
+<h2>Технические возможности</h2>
+<p>Набор аппаратных средств включает:</p>
+<ul class="simple">
+<li>Микроконтроллер
+<a class="reference external" href="http://focus.ti.com/docs/prod/folders/print/cc430f6137.html">CC430F6137</a>,
+который имеет встроенный беспроводной интерфейс (имеются три версии:
+433 МГц, 868 МГц и 915 МГц);</li>
+<li>96-сегментный LCD дисплей с подсветкой;</li>
+<li>Датчик температуры;</li>
+<li>Датчик давления;</li>
+<li>3-осевой акселерометр.</li>
+</ul>
+<p>Беспроводные возможности часов позволяют выступать им в роли
+центрального хаба для нескольких беспроводных внешних датчиков,
+например, датчика частоты сердечных сокращений или скорости.
+eZ430-Chronos позволяет, также, измерять температуру и напряжение
+источника питания.</p>
+</div>
+<div class="section" id="id3">
+<h2>Функции стандартной прошивки</h2>
+<p>Часы Chronos поставляются со стандартной прошивкой, обеспечивающей
+базовый функционал.</p>
+<p><strong>Базовые функции часов:</strong></p>
+<ul class="simple">
+<li>Время;</li>
+<li>Дата;</li>
+<li>Будильник;</li>
+<li>Секундомер;</li>
+</ul>
+<p><strong>Отображение данных со встроенных датчиков:</strong></p>
+<ul class="simple">
+<li>Высота (давление);</li>
+<li>3-осевой акселерометр;</li>
+<li>Напряжение батарейки;</li>
+<li>Температура;</li>
+</ul>
+<p><strong>Функции для фитнесса (требует дополнительной железки):</strong></p>
+<ul class="simple">
+<li>Частота сердечных сокращений;</li>
+<li>Скорость передвижения;</li>
+<li>Пройденная дистанция;</li>
+<li>Сожженные калории;</li>
+</ul>
+<p><strong>Беспроводные функции:</strong></p>
+<ul class="simple">
+<li>ACC: передача данных с акселерометра;</li>
+<li>PPT: беспроводное управление ПК;</li>
+<li>Sync: синхронизация даты и времени с ПК, калибровка датчика
+температуры и высоты.</li>
+</ul>
+<p><strong>Беспроводные протоколы:</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.ti.com/simpliciti">SimpliciTI</a>;</li>
+<li><a class="reference external" href="http://www.bmwireless.com/index.php/bluerobin_bmwireless.html">BlueRobin</a></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>Документация</h2>
+<p>На прилагаемом компакт-диске содержатся следующие материалы:</p>
+<ul class="simple">
+<li>Подборка даташитов на все компоненты системы;</li>
+<li>Руководство пользователя;</li>
+<li>Схема часов, спецификация, Gerber-файлы печатной платы;</li>
+<li>Схема беспроводной точки доступа, спецификация, Gerber-файлы печатной
+платы;</li>
+<li>Схема и спецификация отладочного интерфейса (Gerber-файлы
+недоступны);</li>
+<li>Видео, демонстрирующее процесс разборки и сборки;</li>
+<li>Видео с презентацией отладки и демонстрацией основных возможностей.</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>Программное обеспечение</h2>
+<ul class="simple">
+<li>Исходные тексты всех приложений и прошивок;</li>
+<li>Программы Chronos Control Center и Chronos Data Logger для платформы
+Linux;</li>
+<li>Программы Chronos Control Center и Chronos Data Logger для платформы
+Windows;</li>
+<li>Evalution версия интегрированной среды разработки IAR (с ограничением
+на размер кода 16К), Windows;</li>
+<li>Evalution версия интегрированной среды разработки CodeComposer (с
+ограничением на размер кода 16К), Windows;</li>
+</ul>
+<p>Помимо самих программ, в директории установки можно обнаружить набор
+документации, исходный код для часов и точки доступа и скомпилированные
+прошивки, используемые в них по умолчанию (для восстановления в случае
+неудачных экспериментов).</p>
+<blockquote>
+<p>Небольшое примечание для пользователей Linux. Для работы программ
+необходимо наличие установленных пакетов tcl8.5 и Tk. Например, для
+системы Ubuntu 10.10 было необходимо произвести обновление Tcl при
+помощи следующей команды:</p>
+<p>sudo apt-get update &amp;&amp; sudo apt-get install tcl8.5 tk8.5 &amp;&amp; sudo
+apt-get remove tcl8.4.</p>
+</blockquote>
+<p>Часы имеют две альтернативные прошивки: стандартная и логгер.</p>
+</div>
+<div class="section" id="chronos-control-center">
+<h2>Chronos Control Center</h2>
+<p>Эта программа служит для работы с часами, имеющими стандартную прошивку.
+С ее помощью можно проделать следующие манипуляции:</p>
+<ul class="simple">
+<li>Отображать в реальном времени значения ускорения по трем осям со
+встроенного в часы акселерометра;</li>
+<li>Включить управление курсором мыши с помощью акселерометра (довольно
+интересная функция, возможно будет полезна для каких-нибудь игрушек);</li>
+<li>Настроить профиль для беспроводного управления программами на ПК с
+помощью кнопок часов (в комплекте идут профили для iTunes и Media
+Player);</li>
+<li>Синхронизировать время/дату с компьютером;</li>
+<li>Эмулировать внешние беспроводные датчики;</li>
+<li>Выполнить обновление прошивки по беспроводному интерфейсу.</li>
+</ul>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/9ae021.png"><img alt="Рис. 3. Отображение сигналов с акселерометра и управление указателем мыши." src="/uploads/images/00/00/01/2011/02/21/9ae555.png" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 3. Отображение сигналов с акселерометра и управление указателем мыши.</em></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/c00db2.png"><img alt="Рис. 4. Настройка профиля управления программами на ПК." src="/uploads/images/00/00/01/2011/02/21/2fc848.png" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 4. Настройка профиля управления программами на ПК.</em></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/bfebb5.png"><img alt="Рис. 5. Синхронизация даты/времени с ПК." src="/uploads/images/00/00/01/2011/02/21/265cb7.png" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 5. Синхронизация даты/времени с ПК.</em></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/5fe433.png"><img alt="Рис. 6. Эмулирование внешних беспроводных датчиков." src="/uploads/images/00/00/01/2011/02/21/a9879e.png" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 6. Эмулирование внешних беспроводных датчиков.</em></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/e29110.png"><img alt="Рис. 7. Обновление прошивки." src="/uploads/images/00/00/01/2011/02/21/14ef85.png" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 7. Обновление прошивки.</em></div>
+</div>
+</div>
+</div>
+<div class="section" id="chronos-data-logger">
+<h2>Chronos Data Logger</h2>
+<p>eZ430-Chronos может также использоваться как автономный регистратор
+таких параметров как ЧСС, высота, температура с программируемым
+интервалом от 1 до 255 с. 8 Кб внутренней флеш-памяти зарезервированы
+для хранения данных за интервал от нескольких часов до нескольких дней
+(в зависимости от настроек). Накопленные данные могут быть переданы на
+компьютер в формате CSV для дальнейшего анализа по беспроводному
+интерфейсу.</p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="/uploads/images/00/00/01/2011/02/21/8747fc.png"><img alt="Рис. 8. Программа Chronos Data Logger." src="/uploads/images/00/00/01/2011/02/21/4840fb.png" /></a></div>
+<div class="line-block">
+<div class="line"><em>Рис. 8. Программа Chronos Data Logger.</em></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Ссылки</h2>
+<ul class="simple">
+<li><strong>`eZ430-Chronos User Guide
+(SLAU292) &lt;http://www.ti.com/lit/pdf/slau292&gt;`__</strong> - Руководство
+пользователя Chronos.</li>
+<li>Новые версии ПО Chronos 1.2 для
+<strong>`Windows &lt;http://www.ti.com/lit/zip/slac341&gt;`__</strong> и
+<strong>`Linux &lt;http://www.ti.com/lit/zip/slac388&gt;`__</strong>.</li>
+<li><strong>`EZ430-Chronos
+Wiki &lt;http://processors.wiki.ti.com/index.php/EZ430-Chronos&gt;`__</strong> -
+страница Wiki на сайте TI, содержит большое количество информации,
+крайне рекомендуется к прочтению.</li>
+<li><strong>`CC430F6137 Code Examples &lt;http://www.ti.com/lit/zip/slac279&gt;`__</strong>
+- примеры кода для микроконтроллера CC430F6137.</li>
+<li><strong>`eZ430 python
+tools &lt;http://github.com/wolfmankurd/eZ430-tools&gt;`__</strong> - проект с
+открытым исходным кодом, состоящий из скриптов Python для
+взаимодействия с eZ430. Содержит полнофункциональный набор классов
+для работы с часами.</li>
+<li><strong>`OpenChronos Firmware &lt;http://github.com/poelzi/OpenChronos/&gt;`__</strong>
+- альтернативная версия прошивки часов, спроектированная для сборки
+при помощи msp430-gcc.</li>
+</ul>
+</div>
+</div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/paketnyj-protokol-obmena-dannymi.html"><h2>Пакетный протокол обмена данными</h2></a>
+        <div class= "well small"> Сб 23 Октябрь 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="section" id="id2">
+<h2>Общее описание протокола</h2>
+<p>В данной статье будет рассмотрен &nbsp;пакетный протокол обмена данными по
+любому последовательному интерфейсу. Он поддерживает как соединение типа
+точка-точка, так и работу в сети.</p>
+<p>Работа по протоколу синхронная, в сети может присутствовать только один
+мастер и неограниченное количество подчиненных устройств. Если быть
+точнее, количество устройств в сети ...</p></div> <a class="btn btn-info xsmall" href="/paketnyj-protokol-obmena-dannymi.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/termofen-s-cifrovoj-stabilizaciej-temperatury.html"><h2>Термофен с цифровой стабилизацией температуры</h2></a>
+        <div class= "well small"> Ср 21 Апрель 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>В представленной термовоздушной паяльной станции используется фен от
+китайской станции Lukey 702, который содержит в ручке турбинный
+двигатель. К фену я также приобрел штатный держатель, в котором
+установлены магниты для управления герконом, расположенным в рукоятке
+фена и служащим для определения положения.</p>
+<p><strong>Внимание! Устройство работает с напряжением 220В, которое может быть ...</strong></p> <a class="btn btn-info xsmall" href="/termofen-s-cifrovoj-stabilizaciej-temperatury.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/rabotaem-s-shinoj-i2c-smbus.html"><h2>Работаем с шиной I2C (SMBus)</h2></a>
+        <div class= "well small"> Пн 29 Март 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Шина I2C представляет собой последовательную шину данных для связи
+внутренних компонентов устройств. Разработана фирмой Phillips в 1980-х
+годах.</p>
+<p>Шина SMBus основана на шине I2C и широко применяется в современных
+компьютерах. Основное отличие от оригинальной I2C - ограничение
+минимальной рабочей частоты за счет введения таймаутов операций передачи
+данных.</p>
+<p>I2C для своей работы ...</p> <a class="btn btn-info xsmall" href="/rabotaem-s-shinoj-i2c-smbus.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/debug-eclipse-gdb.html"><h2>Отладка программ для MSP430 с помощью Eclipse и GDB</h2></a>
+        <div class= "well small"> Ср 09 Декабрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="section" id="id1">
+<h2>Введение</h2>
+<p>Первую часть статьи, которая описывает установку и настройку среды
+разработки и компилятора, можно прочитать по ссылке:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.levap.ru/2009/11/eclipse-mspgcc/">Установка и настройка Eclipse +
+MSPGCC</a></li>
+</ul>
+<p>В данной статье рассмотрим работу с отладчиком GDB в среде разработки
+Eclipse. Для этого нам потребуется JTAG-адаптер, я использую
+MSP-FET430PIF, который подключается к компьютеру через порт LPT. Также ...</p></div> <a class="btn btn-info xsmall" href="/debug-eclipse-gdb.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/eclipse-mspgcc.html"><h2>Установка и настройка Eclipse + MSPGCC</h2></a>
+        <div class= "well small"> Чт 26 Ноябрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="section" id="id1">
+<h2>Введение</h2>
+<p>Связка свободно распространяемой среды разработки Eclipse и компилятора
+MSPGCC позволяет осуществить полный цикл разработки для
+микроконтроллеров семейства MSP430 без каких бы то ни было
+ограничений.&nbsp;Toolchain состоит из трех компонентов:</p>
+<ul class="simple">
+<li>Eclipse в качестве среды разработки;</li>
+<li>mspgcc в качестве компилятора и компоновщика;</li>
+<li>GDB как отладчик.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>Необходимые компоненты</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/galileosr1">Eclipse IDE for ...</a></li></ul></div> <a class="btn btn-info xsmall" href="/eclipse-mspgcc.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/bsl-programmator-msp430.html"><h2>Простой BSL-программатор для MSP430</h2></a>
+        <div class= "well small"> Вс 15 Ноябрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Для загрузки исполняемого кода во внутреннюю память микроконтроллера,
+можно использовать встроенный загрузчик Bootstrap Loader (BSL). Загрузчику необходимы 4
+сигнальные линии: RxD, TxD, RST/NMI, TEST(TCK).</p>
+<p>В качестве примера BSL-программатора, привожу схему, основанную на
+недорогой и распространенной микросхеме преобразователе уровней
+RS232&lt;-&gt;UART - MAX232 и одном транзисторе.</p>
+<p>Рассмотрим схему устройства:</p>
+<p>[caption ...</p> <a class="btn btn-info xsmall" href="/bsl-programmator-msp430.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/bootstrap-loader-msp430.html"><h2>Прошивка контроллеров MSP430 с помощью Bootstrap Loader</h2></a>
+        <div class= "well small"> Пт 13 Ноябрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Существует два метода загрузки исполняемого кода во внутреннюю память
+микроконтроллера: через&nbsp; отладочный интерфейс <strong>JTAG</strong> и посредством
+встроенного загрузчика <strong>Bootstrap Loader (BSL)</strong>. Связь с процессором
+по интерфейсу JTAG доступна до тех пор, пока не уничтожена аппаратная
+перемычка (fuse), после чего связь возможна только через интерфейс BSL.
+Насколько я понял, в новой ...</p> <a class="btn btn-info xsmall" href="/bootstrap-loader-msp430.html">read more</a></div>
+    </div>	
+				
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/msp430.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

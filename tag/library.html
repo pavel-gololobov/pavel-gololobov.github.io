@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/macros-binary.html"><h1>Удобные макросы для работы с двоичными числами</h1></a>
+Вс 13 Декабрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>Часто при программировании микроконтроллеров (да и не только) бывает
+удобно вводить числа в двоичном формате. Предлагаю вашему вниманию
+удобные макросы, которые позволяют использовать 8-, 16- и 32-битные
+числа в двоичном формате.</p>
+<ul class="simple">
+<li><a class="reference external" href="/files/source/convert.zip">Скачать исходный код (convert.h)</a></li>
+</ul>
+<div class="line-block">
+<div class="line">Посмотреть код:</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">[c]#ifndef _CONVERT_H_</div>
+<div class="line">#define _CONVERT_H_</div>
+</div>
+</div>
+<p>#include &lt;stdint.h&gt;</p>
+<p>#define HEX__(n) 0x##n##LU</p>
+<div class="line-block">
+<div class="line">// 8-bit conversion function</div>
+<div class="line-block">
+<div class="line">#define B8__(x) ((x&amp;0x0000000FLU)?1:0) \</div>
+<div class="line">+((x&amp;0x000000F0LU)?2:0) \</div>
+<div class="line">+((x&amp;0x00000F00LU)?4:0) \</div>
+<div class="line">+((x&amp;0x0000F000LU)?8:0) \</div>
+<div class="line">+((x&amp;0x000F0000LU)?16:0) \</div>
+<div class="line">+((x&amp;0x00F00000LU)?32:0) \</div>
+<div class="line">+((x&amp;0x0F000000LU)?64:0) \</div>
+<div class="line">+((x&amp;0xF0000000LU)?128:0)</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">// For upto 8-bit binary constants</div>
+<div class="line-block">
+<div class="line">#define B8(d) ((uint8_t)B8__(HEX__(d)))</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">// For upto 16-bit binary constants, MSB first</div>
+<div class="line-block">
+<div class="line">#define B16(dmsb, dlsb) (((uint16_t)B8(dmsb)&lt;&lt;8) \</div>
+<div class="line">+ B8(dlsb))</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">// For upto 32-bit binary constants, MSB first</div>
+<div class="line-block">
+<div class="line">#define B32(dmsb,db2,db3,dlsb) (((uint32_t)B8(dmsb)&lt;&lt;24) \</div>
+<div class="line">+ ((uint32_t)B8(db2)&lt;&lt;16) \</div>
+<div class="line">+ ((uint32_t)B8(db3)&lt;&lt;8) \</div>
+<div class="line">+ B8(dlsb))</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">// Sample usage:</div>
+<div class="line-block">
+<div class="line">// B8(01010101) = 85</div>
+<div class="line">// B16(10101010,01010101) = 43605</div>
+<div class="line">// B32(10000000,11111111,10101010,01010101) = 2164238933</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#endif</div>
+<div class="line-block">
+<div class="line">[/c]</div>
+</div>
+</div>
+</div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/library.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

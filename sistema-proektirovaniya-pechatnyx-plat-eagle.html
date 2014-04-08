@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>Система проектирования печатных плат Eagle</h1>
+Пт 20 Август 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+        </div>
+	
+        <div><p>[caption id=&quot;attachment_248&quot; align=&quot;alignleft&quot; width=&quot;152&quot;
+caption=&quot;Eagle&quot;]<a class="reference external" href="/uploads/2010/08/eagle50e.png"><img alt="Eagle" src="/uploads/2010/08/eagle50e.png" /></a>[/caption]</p>
+<p>За время своего увлечения электроникой, я перепробовал много разных
+систем проектирования электронных схем и печатных плат. Начиная с
+простейших, типа Sprint Layout, которые позволяют просто &quot;нарисовать&quot;
+печатную плату, до монстров типа P-CAD (ныне Altium), позволяющих
+провести полный цикл разработки сложных многослойных плат.</p>
+<p>Однако, и те и те программы не могли меня удовлетворить. Одни -
+недостатком функционала, другие - его избытком, и как следствие,
+сложностью освоения. В поисках золотой середины сначала пришел к
+программе <a class="reference external" href="http://www.diptrace.com/">DipTrace</a>, которая имеет русские
+корни, хотя и ориентирована больше на западных покупателей. Бесплатный
+вариант имеет ограничение на 300 &quot;ножек&quot; компонентов в разрабатываемых
+схемах. Также, по личному запросу, разработчики могут прислать ключ на
+версию с ограничением в 1000 &quot;ножек&quot;, если программу планируется
+использовать в некоммерческих целях.</p>
+<p>DipTrace оказалась очень удобной системой проектирования, но содержала
+один очень большой недостаток, существенный для меня - привязанность к
+платформе Windows. Дело в том, что уже продолжительное время я использую
+как дома, так и в работе операционную систему Linux. Я даже проводил
+эксперименты по запуску программы посредством Wine, но они закончились
+неудачно.</p>
+<p>Просматривая разные проекты на западных сайтах, посвященных электронике,
+стал замечать, что большинство их радиолюбителей используют для
+проектирования схем и печатных плат программу
+<a class="reference external" href="http://www.cadsoft.de/">Eagle</a>. После изучения сайта разработчика я
+очень заинтересовался этой программой, поскольку она не имела тех
+недостатков, что имела DipTrace, а именно, она:</p>
+<ul class="simple">
+<li>Поддерживает платформы Windows, Linux и Mac;</li>
+<li>В бесплатной версии не содержит ограничений на число &quot;ножек&quot;
+компонентов, а только на размер печатной платы и количество слоев.</li>
+</ul>
+<p>Установка, как в Windows, так и в Linux проходит быстро и гладко, для
+этого достаточно скачать исполняемый файл с сайта разработчиков,
+запустить и следовать инструкциям. Если при установке выбрать бесплатный
+вариант, ограничения коснутся максимального размера печатной платы (100
+х 80 мм), числа слоев печатной платы (два слоя) и количества листов в
+электрической схеме (вся схема должна находиться на одном листе).</p>
+<p>Самым существенным ограничением является размер печатной платы, но
+большинство моих устройств помещается на платы такого размера, поэтому
+решено было попробовать САПР в деле. Как раз к этому моменту подвернулся
+один достаточно сложный коммерческий проект, который подразумевал полный
+цикл разработки - от электрической схемы до подготовки документации к
+серийному производству. И система Eagle полностью справилась с
+поставленной задачей.</p>
+<p>Eagle на протяжении всего цикла разработки поддерживает жесткую связь
+между электрической схемой и рисунком печатной платы. Внесение
+&nbsp;изменений в один из этих компонентов, немедленно отражается на другом.
+Это позволяет с невероятной легкостью вносить изменения в схему с
+последующей правкой ПП в соответствии с ней. Такой возможности не могут
+предоставить простые программы типа Sprint Layout, в которых рисунок
+платы существует &nbsp;отдельно от схемы.</p>
+<p>В процессе освоения данной САПР, часто приходилось искать информацию в
+интернете, и выяснилось, что ее весьма мало на русском языке. Поэтому
+мне захотелось восполнить данный пробел и написать небольшой цикл
+статей, раскрывающих основные возможности Eagle, применительно к
+пользователям-радиолюбителям (т.е. не углубляясь в возможности
+автоматической трассировки и работы с многослойными печатными платами).</p>
+<p>На этом вводную часть считаем законченной, впереди будут опубликованы
+несколько статей, которые кратко описывают работу с системой на основе
+&nbsp;небольшого примера. Я рассмотрю следующие этапы разработки:</p>
+<ul class="simple">
+<li>Создание электронного компонента (его графического представления на
+схеме и печатной плате, их связь);</li>
+<li>Создание принципиальной электрической схемы, содержащей как
+библиотечные компоненты, так и собственные;</li>
+<li>Создание двухсторонней печатной платы на основе электрической схемы;</li>
+<li>Внесение изменений в электрическую схему и связанная с этим правка
+печатной платы;</li>
+<li>Подготовка файлов в формате Gerber для изготовления печатной платы на
+производстве.</li>
+</ul>
+<p>Ждите обновлений!</p>
+</div>
+	
+        <hr>
+
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

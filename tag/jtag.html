@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/debug-eclipse-gdb.html"><h1>Отладка программ для MSP430 с помощью Eclipse и GDB</h1></a>
+Ср 09 Декабрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><div class="section" id="id1">
+<h2>Введение</h2>
+<p>Первую часть статьи, которая описывает установку и настройку среды
+разработки и компилятора, можно прочитать по ссылке:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.levap.ru/2009/11/eclipse-mspgcc/">Установка и настройка Eclipse +
+MSPGCC</a></li>
+</ul>
+<p>В данной статье рассмотрим работу с отладчиком GDB в среде разработки
+Eclipse. Для этого нам потребуется JTAG-адаптер, я использую
+MSP-FET430PIF, который подключается к компьютеру через порт LPT. Также,
+насколько мне известно, поддерживается работа с USB-отладчиком
+MSP-FET430UIF.</p>
+</div>
+<div class="section" id="id2">
+<h2>Содержание</h2>
+<ul class="simple">
+<li>Установка плагина Zylin Embedded CDT</li>
+<li>Настройка отладчика</li>
+<li>Запуск GDBProxy</li>
+<li>Отладка</li>
+</ul>
+</div>
+<div class="section" id="zylin-embedded-cdt">
+<h2>Установка плагина Zylin Embedded CDT</h2>
+<p>Данный плагин для Eclipse является дополнением к CDT, обеспечивающим
+отладку встраиваемых приложений.</p>
+<p>Для его установки выберите в <em>Eclipse</em> пункт меню <em>Help/Install New
+Software</em>. Нажмите кнопку <em>Add</em> и введите название и адрес расположения
+пакета плагина &quot;<a class="reference external" href="http://opensource.zylin.com/zylincdt">http://opensource.zylin.com/zylincdt</a>&quot;.</p>
+<p>[caption id=&quot;attachment_103&quot; align=&quot;alignnone&quot; width=&quot;600&quot;
+caption=&quot;Добавление нового источника обновлений&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_1.png"><img alt="Добавление нового источника обновлений" src="/uploads/2009/12/eclipse_gdb_1-600x533.png" /></a>[/caption]</p>
+<p>Нажмите <em>OK</em> и поставьте галочку напротив Zylin Embedded CDT.</p>
+<p>[caption id=&quot;attachment_104&quot; align=&quot;alignnone&quot; width=&quot;600&quot;
+caption=&quot;Установка Zylin Embedded CDT&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_2.png"><img alt="Установка Zylin Embedded CDT" src="/uploads/2009/12/eclipse_gdb_2-600x534.png" /></a>[/caption]</p>
+<p>После завершения установки плагина, необходимо перезагрузить среду
+разработки.</p>
+</div>
+<div class="section" id="id3">
+<h2>Настройка отладчика</h2>
+<p>Для настройки конфигурации отладки выберете в меню <em>Run/Debug
+Configurations</em>. Выделите <em>Zylin Embedded debug (Native)</em> и нажмите
+кнопку <em>New</em>. Выполните настройки в соответствии с картинками.</p>
+<p>[caption id=&quot;attachment_106&quot; align=&quot;alignnone&quot; width=&quot;546&quot;
+caption=&quot;Создать новую конфигурацию&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_3.png"><img alt="Создать новую конфигурацию" src="/uploads/2009/12/eclipse_gdb_3.png" /></a>[/caption]</p>
+<p>[caption id=&quot;attachment_107&quot; align=&quot;alignnone&quot; width=&quot;600&quot;
+caption=&quot;Настройки&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_4.png"><img alt="Настройки" src="/uploads/2009/12/eclipse_gdb_4-600x501.png" /></a>[/caption]</p>
+<p>[caption id=&quot;attachment_108&quot; align=&quot;alignnone&quot; width=&quot;593&quot;
+caption=&quot;Настройки&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_4.png"><img alt="Настройки" src="/uploads/2009/12/eclipse_gdb_4-600x501.png" /></a>[/caption]</p>
+<p>На вкладке <em>Commands</em> введите следующие команды инициализации:</p>
+<div class="line-block">
+<div class="line">[text]set remoteaddresssize 64</div>
+<div class="line-block">
+<div class="line">set remotetimeout 999999</div>
+<div class="line">target remote localhost:3333</div>
+<div class="line">monitor erase all</div>
+<div class="line">load bin/leds.elf[/text]</div>
+</div>
+</div>
+<p>Последнюю строку необходимо исправить в соответствии с текущим проектом.</p>
+<p>[caption id=&quot;attachment_109&quot; align=&quot;alignnone&quot; width=&quot;592&quot;
+caption=&quot;Инициализация отладчика&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_6.png"><img alt="Инициализация отладчика" src="/uploads/2009/12/eclipse_gdb_6.png" /></a>[/caption]</p>
+<p>Для удобства доступа к созданной конфигурации отладчика установите
+галочку как показано на картинке.</p>
+<p>[caption id=&quot;attachment_110&quot; align=&quot;alignnone&quot; width=&quot;600&quot;
+caption=&quot;Ссылка на конфигкрацию отладчика&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_7.png"><img alt="Ссылка на конфигкрацию отладчика" src="/uploads/2009/12/eclipse_gdb_7-600x591.png" /></a>[/caption]</p>
+</div>
+<div class="section" id="gdbproxy">
+<h2>Запуск GDBproxy</h2>
+<p>Последний шаг, который необходимо выполнить - запуск GDBproxy,
+обеспечивающего TCP/IP интерфейс для GDB. Для этого выберите в меню
+Windows <em>Start/All Programs/mspgcc/msp430gdbproxy (parallel)</em>. Запуск
+GDBproxy производится только один раз, в начале работы.</p>
+<p>[caption id=&quot;attachment_111&quot; align=&quot;alignnone&quot; width=&quot;242&quot;
+caption=&quot;GDBProxy&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_8.png"><img alt="GDBProxy" src="/uploads/2009/12/eclipse_gdb_8.png" /></a>[/caption]</p>
+</div>
+<div class="section" id="id4">
+<h2>Отладка</h2>
+<p>Вот и все что требовалось для настройки отладчика, теперь можно
+использовать все возможности среды разработки для отладки ваших
+программ.</p>
+<p>Для загрузки программы в микроконтроллер и запуска отладчика, нажмите
+кнопку на панели инструментов с изображением жука.</p>
+<p>[caption id=&quot;attachment_112&quot; align=&quot;alignnone&quot; width=&quot;221&quot;
+caption=&quot;Запуск отладчика&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_9.png"><img alt="Запуск отладчика" src="/uploads/2009/12/eclipse_gdb_9.png" /></a>[/caption]</p>
+<p>Перейдите в перспективу отладки нажав соответствующую кнопку на панели
+инструментов.</p>
+<p>[caption id=&quot;attachment_113&quot; align=&quot;alignnone&quot; width=&quot;342&quot;
+caption=&quot;Перспектива отладки&quot;]<a class="reference external" href="/uploads/2009/12/eclipse_gdb_10.png"><img alt="Перспектива отладки" src="/uploads/2009/12/eclipse_gdb_10.png" /></a>[/caption]</p>
+<p>Вот и все! Поздравляю.</p>
+</div>
+</div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/bootstrap-loader-msp430.html"><h2>Прошивка контроллеров MSP430 с помощью Bootstrap Loader</h2></a>
+        <div class= "well small"> Пт 13 Ноябрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Существует два метода загрузки исполняемого кода во внутреннюю память
+микроконтроллера: через&nbsp; отладочный интерфейс <strong>JTAG</strong> и посредством
+встроенного загрузчика <strong>Bootstrap Loader (BSL)</strong>. Связь с процессором
+по интерфейсу JTAG доступна до тех пор, пока не уничтожена аппаратная
+перемычка (fuse), после чего связь возможна только через интерфейс BSL.
+Насколько я понял, в новой ...</p> <a class="btn btn-info xsmall" href="/bootstrap-loader-msp430.html">read more</a></div>
+    </div>	
+				
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/jtag.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

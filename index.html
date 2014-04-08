@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/ispravlenie-kodirovki-v-zip-arxivax.html"><h1>Исправление кодировки в Zip-архивах</h1></a>
+Вт 30 Октябрь 2012
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>Столкнулся с задачей распаковать zip-архив, сделанный в Windows под
+Linux, русские имена файлов оказались в весьма странной кодировке.
+Решение нашлось на просторах интернета:</p>
+<p>[text]unzip file.zip</p>
+<p>convmv -f cp1252 -t cp850 * --notest &nbsp;&amp;&amp; convmv -f cp866 -t utf-8 *
+--notest[/text]</p>
+</div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/chernyj-tekst-na-chernom-fone-na-vsplyvayushhix-podskazkax-v-eclipse.html"><h2>Черный текст на черном фоне на всплывающих подсказках в Eclipse</h2></a>
+        <div class= "well small"> Пт 20 Январь 2012
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>При использовании Eclipse в Ubuntu (в моем случае это Xubuntu) с темой
+оформления по умолчанию, текст во всплывающих окнах нечитаем из-за того,
+что цвет фона совпадает с цветом текста.</p>
+<p>Выглядит это недоразумение следующим образом:</p>
+<p><a class="reference external" href="/uploads/2012/01/popup_color_bug.jpg"><img alt="image0" src="/uploads/2012/01/popup_color_bug.jpg" /></a></p>
+<p>Версии Ubuntu до 11.10 имели интерфейс для исправления этой ошибки (см.
+System &gt; Preferences &gt; Appearance &gt; Theme ...</p> <a class="btn btn-info xsmall" href="/chernyj-tekst-na-chernom-fone-na-vsplyvayushhix-podskazkax-v-eclipse.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/otkrytaya-apparatnaya-platforma-maple-i-plata-mooboard.html"><h2>Открытая аппаратная платформа Maple и плата MooBoard</h2></a>
+        <div class= "well small"> Чт 19 Январь 2012
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="section" id="arduino">
+<h2>Arduino</h2>
+<p><a class="reference external" href="/uploads/2012/01/arduino_uno_test.jpg"><img alt="image0" src="/uploads/2012/01/arduino_uno_test-150x150.jpg" /></a>Наверное, все слышали про электронные платы
+<a class="reference external" href="http://arduino.cc/">Arduino</a>, которые являются самой популярной
+платформой для различных радиолюбительских конструкций. В основе платы
+лежит 8-битный микроконтроллер AVR, который при всех своих плюсах имеет
+и значительное количество минусов, основной из которых - ограниченные
+ресурсы. Такие как память, линии ввода-вывода, поддерживаемые
+интерфейсы.</p>
+<p>Думаю, главной причиной успеха ...</p></div> <a class="btn btn-info xsmall" href="/otkrytaya-apparatnaya-platforma-maple-i-plata-mooboard.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/malenkaya-xitrost-pri-rabote-s-cad-eagle.html"><h2>Маленькая хитрость при работе с CAD Eagle</h2></a>
+        <div class= "well small"> Пт 25 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Когда мне приходится заниматься разводкой печатных плат, я предпочитаю
+это делать с помощью САПР Eagle. И до недавнего времени меня смущало
+отсутствие возможности создавать элемент, имеющий несколько ножек с
+одним именем. Например, это актуально для больших процессоров, которые
+имеют кучу <strong>VCC</strong> и <strong>GND</strong> пинов. Раньше я обходил это ограничение
+называя ...</p> <a class="btn btn-info xsmall" href="/malenkaya-xitrost-pri-rabote-s-cad-eagle.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/ispolzovanie-tranzistora-dlya-nagreva.html"><h2>Использование транзистора для нагрева</h2></a>
+        <div class= "well small"> Вт 22 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Иногда возникает необходимость подогрева какого-либо небольшого предмета
+или объема воздуха. Предлагаю очень простой способ, который заключается
+в использовании мощного биполярного транзистора. В качестве преимуществ
+подобного нестандартного нагревательного элемента могу назвать высокую
+доступность (у меня, например, валяется целая коробка старых КТ818,
+КТ837 и т.п.) и удобное крепление, изначально предназначенное для ...</p> <a class="btn btn-info xsmall" href="/ispolzovanie-tranzistora-dlya-nagreva.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/opyt-zakaza-kitajskix-tovarov-cherez-dealextreme.html"><h2>Опыт заказа китайских товаров через DealExtreme</h2></a>
+        <div class= "well small"> Вт 15 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img alt="image0" src="/uploads/2011/11/logo.gif" />Начитавшись разнообразных отзывов в интернете, тоже решил
+попробовать что-нибудь заказать в китайском интернет-магазине, больше
+для приобретения опыта, чем из практических соображений. После изучения
+вопроса, выбор пал на
+магазин&nbsp;<a class="reference external" href="http://www.dealextreme.com/">DealExtreme</a>, пожалуй, самый
+популярный среди наших соотечественников.</p>
+<p>Ассортимент магазина впечатляет, здесь можно найти все - от шариковой
+ручки до планшетного компьютера. Я пошел ...</p> <a class="btn btn-info xsmall" href="/opyt-zakaza-kitajskix-tovarov-cherez-dealextreme.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/materialy-arm-konferencii-texas-instruments.html"><h2>Материалы ARM-конференции Texas Instruments</h2></a>
+        <div class= "well small"> Ср 09 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a class="reference external" href="http://www.mt-system.ru/">|image0|MT-System</a> выложили довольно
+интересные материалы совместной конференции с <a class="reference external" href="http://ti.com">Texas
+Instruments</a>, которая прошла в конце октября. Основной
+темой была презентация новой линейки микроконтроллеров на базе
+архитектуры Cortex-M4.</p>
+<p>Материалы конференции доступны по ссылке:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.mt-system.ru/documents/arm_event_material.rar">Материалы ARM-конференции [31.9
+Мб]</a></li>
+</ul>
+ <a class="btn btn-info xsmall" href="/materialy-arm-konferencii-texas-instruments.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/am335x-ili-cortex-a8-po-cene-arm9-ot-texas-instruments.html"><h2>AM335x или Cortex-A8 по цене ARM9 от Texas Instruments</h2></a>
+        <div class= "well small"> Вт 08 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Компания <a class="reference external" href="http://www.ti.com/">Texas Instruments</a> анонсировала
+высокопроизводительные процессоры AM335x семейства Sitara с архитектурой
+Cortex-A8 в ценовой категории ARM9. При низком уровне цены AM335x
+предоставяет разработчику поддержку 3D-графики, гигабитного Ethernet,
+периферии с высокой пропускной способностью. Новый продукт будет выведен
+на массовый рынок в течении 6 месяцев, со всем необходимым набором
+программного обеспечения и ...</p> <a class="btn btn-info xsmall" href="/am335x-ili-cortex-a8-po-cene-arm9-ot-texas-instruments.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/elektricheskie-izmereniya-s-pomoshhyu-zvukovoj-karty.html"><h2>Электрические измерения с помощью звуковой карты</h2></a>
+        <div class= "well small"> Вт 01 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Не все знают, что обыкновенную компьютерную звуковую карту можно
+использовать в качестве измерительного прибора с аналоговым
+вводом/выводом. Вы можете использовать звуковую карту для оцифровки
+переменных цифровых сигналов в определенном диапазоне, а при внесении
+некоторых доработок в схему, еще постоянных уровней и низкочастотных
+сигналов.</p>
+<p>Предлагаю подборку ссылок на соответствющие проекты ...</p> <a class="btn btn-info xsmall" href="/elektricheskie-izmereniya-s-pomoshhyu-zvukovoj-karty.html">read more</a></div>
+    </div>	
+				
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="/programmnaya-emulyaciya-ethernet-udpip-na-mikrokontrollere-avr.html"><h2>Программная эмуляция Ethernet UDP/IP на микроконтроллере AVR</h2></a>
+        <div class= "well small"> Вт 01 Ноябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>На странице&nbsp;<a class="reference external" href="http://www.cesko.host.sk/IgorPlugUDP/IgorPlug-UDP%20(AVR)_eng.htm">Implementation UDP into microcontroller IgorPlug
+Atmel-UDP
+device</a>&nbsp;можно
+найти реализацию Ethernet и протокола UDP средствами микроконтроллера
+AVR ATMEGA168.</p>
+<p>Самое интересное, что вся логика и физика работы с Ethernet и UDP/IP
+реализована исключительно программно, контакты витой пары подключаются
+непосредственнно к ножкам процессора. Устройство работает на скорости 10
+МБит ...</p> <a class="btn btn-info xsmall" href="/programmnaya-emulyaciya-ethernet-udpip-na-mikrokontrollere-avr.html">read more</a></div>
+    </div>	
+				
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/index.html">1</a></li>
+    <li class=""><a href="/index2.html">2</a></li>
+    <li class=""><a href="/index3.html">3</a></li>
+    <li class=""><a href="/index4.html">4</a></li>
+    <li class=""><a href="/index5.html">5</a></li>
+
+    <li class="next"><a href="/index2.html">Next &rarr;</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

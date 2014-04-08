@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>Описание интерфейса и основных инструментов Eagle</h1>
+Пт 27 Август 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+        </div>
+	
+        <div><p>Для того, чтобы приступить к изучению редакторов, входящих в состав
+системы проектирования Eagle, необходимо привыкнуть к интерфейсу и
+разобраться с основными инструментами программы.</p>
+<p>Сразу после запуска, мы можем увидеть главное окно, которое позволяет
+управлять файлами проектов, библиотеками компонентов и выполнять
+некоторые другие функции. Данное окно остается открытым на протяжении
+всего времени работы программы и его закрытие приводит к закрытию всех
+остальных окон.</p>
+<p>[caption id=&quot;attachment_261&quot; align=&quot;aligncenter&quot; width=&quot;553&quot;
+caption=&quot;Главное окно Eagle&quot;]<a class="reference external" href="/uploads/2010/08/11.png"><img alt="Главное окно Eagle" src="/uploads/2010/08/11.png" /></a>[/caption]</p>
+<p>В левой части экрана содержится список из различных компонентов системы
+(по сути это файловый менеджер, отображающий файлы пользователя и
+служебные файлы структурированно), в правой их описание. На данном этапе
+я не буду подробно останавливаться на описании всех пунктов из списка,
+только кратко опишу их назначение.</p>
+<p><strong>&quot;Libraries&quot;</strong> - список библиотек компонентов и их состав.</p>
+<p><strong>&quot;Design Rules&quot;</strong> - правила проектирования печатных плат. Определяют
+возможные зазоры, толщины проводников и т.п. Обычно заполняются исходя
+из возможностей производства. Позволяют проводить автоматическую
+проверку.</p>
+<p><strong>&quot;User Language Programs&quot;</strong> - скрипты, написанные на специализированном
+языке, позволяющие автоматизировать некоторые операции. К сожалению, я
+пока не изучал подробно эту возможность.</p>
+<p><strong>&quot;CAM Jobs&quot;</strong> - создание комплекта документации для производства
+печатных плат (GERBER-файлы, карта сверловки).</p>
+<p><strong>&quot;Projects&quot;</strong> - пользовательские проекты. Служит для организации
+проектов, в том числе содержит несколько примеров, которые рекомендую
+просмотреть.</p>
+<p>Главное меню довольно стандартное, поэтому я не буду подробно
+останавливаться на его описании.</p>
+<p>Рассмотрим основные инструменты редактора электрических схем и печатных
+плат. Для этого откроем один из примеров, идущих в комплекте программы.</p>
+<p>[caption id=&quot;attachment_262&quot; align=&quot;aligncenter&quot; width=&quot;514&quot;
+caption=&quot;Открываем пример&quot;]<a class="reference external" href="/uploads/2010/08/21.png"><img alt="Открываем пример" src="/uploads/2010/08/21.png" /></a>[/caption]</p>
+<p>Обратите внимание, что помимо окна с электрической схемой, автоматически
+открылось окно с печатной платой. Далее, при проектировании своих
+устройств, эти два окна обязательно должны быть открыты одновременно,
+т.к. программа поддерживает автоматическую связь между схемой и печатной
+платой. Внесение изменений в один из этих компонентов сразу же
+отражается на другом.</p>
+<p>[caption id=&quot;attachment_263&quot; align=&quot;aligncenter&quot; width=&quot;507&quot;
+caption=&quot;Редактор электрической схемы&quot;]<a class="reference external" href="/uploads/2010/08/31.png"><img alt="Редактор электрической схемы" src="/uploads/2010/08/31.png" /></a>[/caption]</p>
+<p>Слева находится панель инструментов, которая содержит как стандартные
+инструменты, присутствующие во всех редакторах программы, так и
+специфические для конкретного редактора.</p>
+<p>Рассмотрим общие инструменты, которые располагаются вверху, начиная с
+<em>&quot;Info&quot;</em>, который вызывается нажатием кнопки с изображением буквы <em>&quot;i&quot;</em>.</p>
+<p>Выбор инструмента осуществляется нажатием на соответствующую кнопку и
+последующим выбором компонента, к которому инструмент будет применяться.
+Нажмите на кнопку <em>&quot;i&quot;</em>, а затем щелкните на любом компоненте в схеме.
+Появится следующее окно:</p>
+<p>[caption id=&quot;attachment_264&quot; align=&quot;aligncenter&quot; width=&quot;304&quot;
+caption=&quot;Окно свойств компонента&quot;]<a class="reference external" href="/uploads/2010/08/41.png"><img alt="Окно свойств компонента" src="/uploads/2010/08/41.png" /></a>[/caption]</p>
+<p>В свойствах компонента можно изменить его имя (Name), величину (Value) и
+некоторые другие параметры. Для разных элементов схемы список свойств
+будет отличаться. Например, для проводника или шины можно задать имя,
+стиль, толщину и т.д.</p>
+<p>Под кнопкой с изображением цветных квадратиков скрываются настройки
+отображения слоев схемы.</p>
+<p>[caption id=&quot;attachment_265&quot; align=&quot;aligncenter&quot; width=&quot;278&quot;
+caption=&quot;Отображение слоев&quot;]<a class="reference external" href="/uploads/2010/08/51.png"><img alt="Отображение слоев" src="/uploads/2010/08/51.png" /></a>[/caption]</p>
+<p>Далее, опишу все кнопки по-порядку. В принципе, по рисунку на них не
+сложно догадаться о функциональном назначении.</p>
+<ul class="simple">
+<li>Перемещение компонента;</li>
+<li>Клонирование;</li>
+<li>Отражение;</li>
+<li>Поворот;</li>
+<li>Выделение группы компонентов;</li>
+<li>Внесение изменений;</li>
+<li>Вырезать;</li>
+<li>Вставить;</li>
+<li>Удалить.</li>
+</ul>
+<p>При работе с группой компонентов, сначала инструментом<em>&quot;Group&quot;</em>
+необходимо выделить группу, затем выбрать инструмент, который
+планируется применить к данной группе и, щелкнув по ней правой кнопкой,
+запустить процесс.</p>
+<p>Сброс любого действия осуществляется нажанием кнопки <em>&quot;Escape&quot;</em>.</p>
+<p>Для дальнейшего знакомства с интерфейсом и инструментами, рекомендую
+понажимать все кнопки, которые покажутся вам интересными, попробовать
+менять настройки, смотреть на реакцию редактора печатной платы (который,
+напомню, всегда открыт параллельно со схемой). Если не сохранять
+внесенные изменения, такие эксперименты абсолютно безопасны. Удачи!</p>
+</div>
+	
+        <hr>
+
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

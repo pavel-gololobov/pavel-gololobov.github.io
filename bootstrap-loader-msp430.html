@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>Прошивка контроллеров MSP430 с помощью Bootstrap Loader</h1>
+Пт 13 Ноябрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+        </div>
+	
+        <div><p>Существует два метода загрузки исполняемого кода во внутреннюю память
+микроконтроллера: через&nbsp; отладочный интерфейс <strong>JTAG</strong> и посредством
+встроенного загрузчика <strong>Bootstrap Loader (BSL)</strong>. Связь с процессором
+по интерфейсу JTAG доступна до тех пор, пока не уничтожена аппаратная
+перемычка (fuse), после чего связь возможна только через интерфейс BSL.
+Насколько я понял, в новой серии микроконтроллеров <em>5xx</em> аппаратно
+пережигаемая перемычка заменена программной блокировкой.</p>
+<p>В этой статье мы рассмотрим второй вариант загрузки кода, с помощью
+Bootstrap Loader (BSL)как наиболее простой для начала работы. Он
+позволяет производить загрузку кода без возможности внутрисхемной
+отладки.</p>
+<p>Данный загрузчик доступен в контроллерах всех серий, содержащих
+встроенную FLASH-память. При этом у процессоров серий <em>1xx</em>, <em>2xx</em> и
+<em>4xx</em> загрузчик располагается в ROM, а у серии <em>5xx</em> в защищенной
+области FLASH.</p>
+<p>Для чтения данных, записанных в памяти, через BSL, необходим пароль,
+который может быть извлечен из прошивки или введен из внешнего источника
+(например, считан из файла). При его отсутствии, возможно выполнение
+только команды полной очистки FLASH-памяти.</p>
+<p>Для работы с загрузчиком через компьютерный порт RS232 (COM), необходимы
+4 сигнальные линии: TxD, RxD, DTR, RTS. Для преобразования уровней можно
+использовать любую микросхему, которая поддерживает питание 3,3 В и
+имеет хотя бы 3 входа (для сигналов TxD, DTR, RTS) и 1 выход (для
+сигнала RxD). В том числе, микросхемы-преобразователи USB-&gt;UART
+(например, FT232).</p>
+<p>Я использую для этого самодельный переходник USB-&gt;UART на основе
+микросхемы FTDI FT232BM. У фирмы FTDI также имеется микросхема FT232R,
+которая требует минимального количества внешней обвязки и отлично
+подходит для решения данной задачи.</p>
+<p>На сайте будут представлены несколько схем BSL-программаторов, а также
+схема JTAG-адаптера на LPT порт.</p>
+<p>Подключение BSL-программатора к целевому микроконтроллеру осуществляется
+в соответствии со следующей таблицей:</p>
+<table border="0" cellspacing="0" width="600"><tbody><tr><th><p>Сигнал RS232</p>
+</th><th><p>Контроллеры с ножкой TEST</p>
+</th><th><p>Контроллеры семейства F4xx</p>
+</th><th><p>Остальные контроллеры</p>
+</th></tr><tr><td><p>TxD</p>
+</td><td><p>RxD (P2.2)</p>
+</td><td><p>RxD (P1.1)</p>
+</td><td><p>RxD (P2.2)</p>
+</td></tr><tr><td><p>RxD</p>
+</td><td><p>TxD (P1.1)</p>
+</td><td><p>TxD (P1.0)</p>
+</td><td><p>TxD (P1.1)</p>
+</td></tr><tr><td><p>DTR</p>
+</td><td><p>RST/NMI</p>
+</td><td><p>RST/NMI</p>
+</td><td><p>RST/NMI</p>
+</td></tr><tr><td><p>RTS</p>
+</td><td><p>TEST</p>
+</td><td><p>TCK</p>
+</td><td><p>TCK</p>
+</td></tr><tr><td><p>GND</p>
+</td><td><p>GND</p>
+</td><td><p>GND</p>
+</td><td><p>GND</p>
+</td></tr></tbody></table><p>Рассмотрим работу с BSL-программатором на примере программы
+msp430-bsl.exe, входящей в состав пакета MSP GCC.</p>
+<p>Для получения справочной информации, в консоли (<em>Start-&gt;Run -&gt; cmd</em>)
+введите:</p>
+<p>[text]C:\ &gt;cd c:\mspgcc\bin</p>
+<p>C:\mspgcc\bin&gt;msp430-bsl.exe –h[/text]</p>
+<div class="line-block">
+<div class="line">Вывод программы с русским переводом находится под спойлером:</div>
+<div class="line-block">
+<div class="line">[spoiler]</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">[text]C:\mspgcc\bin&gt;msp430-bsl.exe -h</div>
+<div class="line-block">
+<div class="line">MSP430 Bootstrap Loader Version: 2.0</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Использование: msp430-bsl.exe [options] [file]</div>
+<div class="line-block">
+<div class="line">Версия: 2.0</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Файлы с расширением &quot;.txt&quot; принимаются как файлы в формате TI-Text,</div>
+<div class="line-block">
+<div class="line">а файлы &quot;.a43&quot; и &quot;.hex&quot; как файлы в формате IntelHEX, а все остальные</div>
+<div class="line">как файлы ELF.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Основные параметры:</div>
+<div class="line-block">
+<div class="line">-h, --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Показать эту страницу с помощью.</div>
+<div class="line">-c, --comport=port&nbsp;&nbsp;&nbsp; Указать номер используемого COM-порта.</div>
+<div class="line">(По умолчанию 0)</div>
+<div class="line">0-&gt;COM1 / ttyS0</div>
+<div class="line">1-&gt;COM2 / ttyS1</div>
+<div class="line">и т.д.</div>
+<div class="line">-P, --password=file&nbsp;&nbsp; указывает на файл, содержащий векторы прерываний,</div>
+<div class="line">которые используются в качестве пароля. Это может</div>
+<div class="line">быть любой файл, ранее используемый для программирования.</div>
+<div class="line">(например -P INT_VECT.TXT).</div>
+<div class="line">-f, --framesize=num&nbsp;&nbsp; Максимальное количество байт, передаваемых за один фрейм.</div>
+<div class="line">(от 16 до 240 с шагом 16) (например -f 240).</div>
+<div class="line">-m, --erasecycles=num Число циклов полного стирания памяти (по умолчанию = 1).</div>
+<div class="line">Требуется для некоторых устаревших контроллеров.</div>
+<div class="line">(например для F149: -m20).</div>
+<div class="line">-U, --unpatched&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Не загружать патч BSL, когда это может быть необходимо.</div>
+<div class="line">Используется когда нет необходимости программировать FLASH,</div>
+<div class="line">а программа загружается в RAM для исполнения.</div>
+<div class="line">-D, --debug&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Увеличивает уровень отладочной информации.</div>
+<div class="line">-I, --intelhex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Формат входного файла IntelHex.</div>
+<div class="line">-T, --titext&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Формат входного файла TI-Text.</div>
+<div class="line">-N, --notimeout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Не использовать таймаут для последовательного порта.</div>
+<div class="line">-B, --bsl=bsl.txt&nbsp;&nbsp;&nbsp;&nbsp; Загрузить новый BSL из файла TI-Text.</div>
+<div class="line">-S, --speed=baud&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Изменение скорости порта (читайте slaa089a.pdf для дополнительной</div>
+<div class="line">информации). Возможные значения: 9600, 19200, 38400</div>
+<div class="line">(по умолчанию 9600).</div>
+<div class="line">-1, --f1x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Указывает семейство контроллера.</div>
+<div class="line">-4, --f4x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Указывает семейство контроллера.</div>
+<div class="line">--invert-reset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Инвертирование сигнала на ножке RST.</div>
+<div class="line">--invert-test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Инвертирование сигнала на ножке TEST/TCK.</div>
+<div class="line">--swap-reset-test&nbsp;&nbsp;&nbsp;&nbsp; Взаимозамена управляющих сигналов TEST/TCK и RST.</div>
+<div class="line">--test-on-tx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Also toggle TX line for the TEST/TCK signal.</div>
+<div class="line">--ignore-answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Игнорировать ответы ACKs от BSL (не используйте</div>
+<div class="line">если не знаете что это)</div>
+<div class="line">--no-BSL-download&nbsp;&nbsp;&nbsp;&nbsp; Do not download replacement BSL (disable automatic)</div>
+<div class="line">--force-BSL-download&nbsp; Download replacement BSL even if not needed (the one</div>
+<div class="line">in the device would have the required features)</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Программирование:</div>
+<div class="line-block">
+<div class="line">-e, --masserase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Полное стирание (очищает всю FLASH-память)</div>
+<div class="line">-m, --mainerase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Стирание только основной области памяти(требует --password)</div>
+<div class="line">--erase=address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Стирание сегмента памяти по заданному адресу</div>
+<div class="line">(требует --password)</div>
+<div class="line">--erase=adr1-adr2&nbsp;&nbsp;&nbsp;&nbsp; Стирание диапазона сегментов памяти по заданнымадресам</div>
+<div class="line">(требует --password)</div>
+<div class="line">-E, --erasecheck&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Erase Check by file</div>
+<div class="line">-p, --program&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Прошивка файла</div>
+<div class="line">-v, --verify&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Верификация с помощью файла</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">The order of the above options matters! The table is ordered by normal</div>
+<div class="line-block">
+<div class="line">execution order. For the options &quot;Epv&quot; a file must be specified.</div>
+<div class="line">Program flow specifiers default to &quot;pvr&quot; if a file is given.</div>
+<div class="line">Don't forget to specify &quot;e&quot; or &quot;eE&quot; when programming flash!</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Data retreiving:</div>
+<div class="line-block">
+<div class="line">-u, --upload=addr&nbsp;&nbsp;&nbsp;&nbsp; Upload a datablock (see also: -s).</div>
+<div class="line">-s, --size=num&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size of the data block do upload. (Default is2)</div>
+<div class="line">-x, --hex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Show a hexadecimal display of the uploaded data.</div>
+<div class="line">(Default)</div>
+<div class="line">-b, --bin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Get binary uploaded data. This can be used</div>
+<div class="line">to redirect the output into a file.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Действия перед выходом:</div>
+<div class="line-block">
+<div class="line">-g, --go=address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Старт программы по заданному адресу.</div>
+<div class="line">This implies option --wait.</div>
+<div class="line">-r, --reset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Сброс целевого MSP430.</div>
+<div class="line">This is a normal device reset and will start</div>
+<div class="line">the programm that is specified in the reset</div>
+<div class="line">vector. (see also -g)</div>
+<div class="line">-w, --wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ждать &lt;ENTER&gt; перед закрытием последовательного порта.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Параметры адреса для --erase, --upload, --size могут быть указаны в формате</div>
+<div class="line-block">
+<div class="line">decimal, hexadecimal или octal.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Если программа отвечает &quot;NAK received&quot;, значит не указан, или указан неверно пароль.</div>
+<div class="line-block">
+<div class="line">Необходимо произвести полное стирание памяти перед программированием.[/text]</div>
+</div>
+</div>
+<p>[/spoiler]</p>
+<p>Параметры, которые будут нас интересовать в первую очередь:</p>
+<p><em>-c, --comport=port</em> - устанавливает номер COM-порта, используемый для
+программирования, причем, &quot;0&quot; соответствуетCOM1, &quot;1&quot; соответствует COM2
+и т.д.</p>
+<p><em>--invert-reset</em> – инвертирует логический уровень на ножке RST</p>
+<p><em>--invert-test</em> – инвертирует логический уровень на ножке TEST (TCK)</p>
+<p><em>-e, --masserase</em> – полное стирание FLASH-памяти</p>
+<p><em>-p, --program</em> – загрузка прошивки (программирование)</p>
+<p><em>-v, --verify</em> – верификация (проверка) прошивки</p>
+<p><em>-r, --reset</em> – сброс контроллера по окончании программирования</p>
+<p>Инвертирование сигналов полезно в случае, когда используется не родной
+программатор, схема и печатная плата которого описана в документе от
+Texas Instruments, а самодельный, в котором это не предусмотрено
+аппаратно.</p>
+<p>Предположим, наш программатор (на основе простейшего преобразователя
+уровней) подключен к порту COM3, программируемый контроллер имеет ножку
+TEST. Тогда вызов процедуры программирования кристалла будет выглядеть
+следующим образом:</p>
+<p>[text]C:\mspgcc\bin&gt;msp430-bsl.exe -c2 --invert-reset -e -p -v -r
+leds.a43</p>
+<div class="line-block">
+<div class="line">MSP430 Bootstrap Loader Version: 2.0</div>
+<div class="line-block">
+<div class="line">Mass Erase...</div>
+<div class="line">Transmit default password ...</div>
+<div class="line">Invoking BSL...</div>
+<div class="line">Transmit default password ...</div>
+<div class="line">Current bootstrap loader version: 1.60 (Device ID: 1232)</div>
+<div class="line">Program ...</div>
+<div class="line">226 bytes programmed.</div>
+<div class="line">Verify ...</div>
+<div class="line">Reset device ...[/text]</div>
+</div>
+</div>
+<p>Для устройств без ножки TEST, в которых используется TCK, необходимо
+добавить параметр&nbsp; <em>--invert-test</em>.</p>
+<p>Приведенный пример запуска программы-загрузчика осуществляет полное
+стирание FLASH-памяти, загрузку новой прошивки из файла <em>leds.a43</em>,
+проверку новой прошивки и сброс устройства.</p>
+<p>Входной файл прошивки может иметь форматы Intel HEX или TI TXT.</p>
+<p><strong>Полезные ссылки:</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.ti.com/lit/pdf/slau265">MSP430 Memory Programming User's Guide
+(PDF)</a></li>
+<li><a class="reference external" href="http://www.ti.com/lit/zip/slau265">MSP430 Memory Programming User's Guide associated code files
+(ZIP)</a></li>
+<li><a class="reference external" href="http://focus.ti.com/general/docs/litabsmultiplefilelist.tsp?literatureNumber=slaa089e">Features of the MSP430 Bootstrap Loader (Rev.
+E)</a></li>
+</ul>
+</div>
+	
+        <hr>
+
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

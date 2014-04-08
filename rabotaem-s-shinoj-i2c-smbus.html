@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>Работаем с шиной I2C (SMBus)</h1>
+Пн 29 Март 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+        </div>
+	
+        <div><p>Шина I2C представляет собой последовательную шину данных для связи
+внутренних компонентов устройств. Разработана фирмой Phillips в 1980-х
+годах.</p>
+<p>Шина SMBus основана на шине I2C и широко применяется в современных
+компьютерах. Основное отличие от оригинальной I2C - ограничение
+минимальной рабочей частоты за счет введения таймаутов операций передачи
+данных.</p>
+<p>I2C для своей работы использует две двунаправленные линии передачи
+данных, которые подтянуты к напряжению питания и управляются схемой
+открытого коллектора или открытого стока.</p>
+<p><em>SDA</em> - последовательная линия данных;</p>
+<p><em>SCL</em> - последовательная линия тактирования.</p>
+<p>Обе линии нагружены резисторами, стандартное напряжение на шине +5В или
++3,3В. Однако, оно может быть и другим.</p>
+<p>Адресация осуществляется в 7 или 10-битном адресном пространстве, на
+одну шину возможно подключение до 112 или 1008 устройств соответственно.
+Основной режим работы - на скорости 100 кБит/с или в высокоскоростном
+режиме 400 кБит/с.</p>
+<p>Версия протокола 2.0, выпущенная в 1998 году предусматривает возможность
+работы на скоростях до 3,4 МБит/с.</p>
+<p>[caption id=&quot;attachment_212&quot; align=&quot;aligncenter&quot; width=&quot;425&quot;
+caption=&quot;Пример схемотехники&quot;]<img alt="Пример схемотехники" src="/uploads/2010/03/425px-I2C.svg_.png" />[/caption]</p>
+<p>Не буду рассматривать алгоритм работы шины, т.к. подобной информации
+очень много в сети, в том числе на русском языке. Предлагаю ознакомиться
+со статьей в <a class="reference external" href="http://ru.wikipedia.org/wiki/I%C2%B2C">русской Wiki</a>.</p>
+<p>Приведу пример библиотеки на языке C, реализующей программную работу
+по протоколу I2C. Код совершенно не привязан ни к каким конкретным
+микроконтроллерам (более того, вообще к микроконтроллерам как таковым) и
+может быть использован где угодно. Достаточно откорректировать строки,
+осветственные за управление линиями SDA и SCL. Код снабжен
+комментариями.</p>
+<p><strong>Скачать исходный текст:</strong></p>
+<p><a class="reference external" href="/uploads/2010/03/i2c-soft.h">i2c-soft.h</a></p>
+<p><a class="reference external" href="/uploads/2010/03/i2c-soft.c">i2c-soft.c</a></p>
+<p><strong>Смотреть исходный текст:</strong></p>
+<p><strong>i2c-soft.h:</strong></p>
+<div class="line-block">
+<div class="line">[c]/*</div>
+<div class="line-block">
+<div class="line">* i2c-soft.h</div>
+<div class="line">*</div>
+<div class="line">* Created on: 19.12.2009</div>
+<div class="line">* Author: Pavel V. Gololobov</div>
+<div class="line">*/</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#ifndef I2C_H_</div>
+<div class="line-block">
+<div class="line">#define I2C_H_</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#include &lt;io.h&gt;</div>
+<div class="line-block">
+<div class="line">#include &lt;stdint.h&gt;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#define NO_I2C_ACK 0</div>
+<div class="line-block">
+<div class="line">#define OK_I2C_ACK 1</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#ifndef SDA</div>
+<div class="line-block">
+<div class="line">#define I2COUT P3OUT // Write to Port</div>
+<div class="line">#define I2CIN P3IN // Read from Port</div>
+<div class="line">#define I2CDIR P3DIR // Set Port Direction</div>
+<div class="line">#define I2CSEL P3SEL // Alternative Port Fuctions</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#define SDA 0x02 // Serial Data Line PIN</div>
+<div class="line-block">
+<div class="line">#define SCL 0x08 // Serial Clock Line PIN</div>
+<div class="line">#endif</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">// Init Bus</div>
+<div class="line-block">
+<div class="line">void i2c_Init();</div>
+<div class="line">// Start Transfer</div>
+<div class="line">void i2c_Start();</div>
+<div class="line">// Stop Transfer</div>
+<div class="line">void i2c_Stop();</div>
+<div class="line">// Write Transfer</div>
+<div class="line">int16_t i2c_Write(uint8_t);</div>
+<div class="line">// Read Transfer</div>
+<div class="line">uint8_t i2c_Read(int16_t);</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">// Read Byte</div>
+<div class="line-block">
+<div class="line">uint8_t i2c_ReadByte(uint8_t, uint8_t);</div>
+<div class="line">// Write Byte</div>
+<div class="line">void i2c_WriteByte(uint8_t, uint8_t, uint8_t);</div>
+</div>
+</div>
+<p>#endif[/c]</p>
+<p><strong>i2c-soft.c</strong></p>
+<div class="line-block">
+<div class="line">[c]/*</div>
+<div class="line-block">
+<div class="line">* i2c-soft.c</div>
+<div class="line">*</div>
+<div class="line">* Created on: 19.12.2009</div>
+<div class="line">* Author: Pavel V. Gololobov</div>
+<div class="line">*/</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">#include &lt;io.h&gt;</div>
+<div class="line-block">
+<div class="line">#include &lt;stdint.h&gt;</div>
+<div class="line">#include &quot;i2c-soft.h&quot;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Speed Down</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">#define I2CWAIT i2c_Wait(100);</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Delay</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">void i2c_Wait(int32_t n)</div>
+<div class="line">{</div>
+<div class="line">do</div>
+<div class="line">{</div>
+<div class="line">nop();</div>
+<div class="line">nop();</div>
+<div class="line">nop();</div>
+<div class="line">nop();</div>
+<div class="line">nop();</div>
+<div class="line">}</div>
+<div class="line">while(--n);</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C SDA SCL Control</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">static void SetLowSDA()</div>
+<div class="line">{</div>
+<div class="line">I2CDIR |= SDA;</div>
+<div class="line">I2CWAIT</div>
+<div class="line">}</div>
+<div class="line">static void SetHighSDA()</div>
+<div class="line">{</div>
+<div class="line">I2CDIR &amp;= ~SDA;</div>
+<div class="line">I2CWAIT</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">static void SetLowSCL()</div>
+<div class="line-block">
+<div class="line">{</div>
+<div class="line">I2COUT &amp;= ~SCL;</div>
+<div class="line">I2CWAIT</div>
+<div class="line">}</div>
+<div class="line">static void SetHighSCL()</div>
+<div class="line">{</div>
+<div class="line">I2COUT |= SCL;</div>
+<div class="line">I2CWAIT</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Initialize Bus</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">void i2c_Init()</div>
+<div class="line">{</div>
+<div class="line">I2CSEL &amp;= ~SDA;</div>
+<div class="line">I2CSEL &amp;= ~SCL;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">I2COUT &amp;= ~SCL;</div>
+<div class="line-block">
+<div class="line">I2COUT &amp;= ~SDA;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">I2CDIR |= SCL;</div>
+<div class="line-block">
+<div class="line">I2CDIR &amp;= ~SDA;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetHighSCL();</div>
+<div class="line-block">
+<div class="line">SetLowSDA();</div>
+<div class="line">SetHighSDA();</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Start Data Transfer</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">void i2c_Start()</div>
+<div class="line">{</div>
+<div class="line">SetHighSCL();</div>
+<div class="line">SetHighSDA();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetHighSCL();</div>
+<div class="line-block">
+<div class="line">SetLowSDA();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetLowSCL();</div>
+<div class="line-block">
+<div class="line">SetHighSDA();</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Stop Transfer</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">void i2c_Stop()</div>
+<div class="line">{</div>
+<div class="line">SetLowSCL();</div>
+<div class="line">SetLowSDA();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetHighSCL();</div>
+<div class="line-block">
+<div class="line">SetLowSDA();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetHighSCL();</div>
+<div class="line-block">
+<div class="line">SetHighSDA();</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Write Transfer</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">int16_t i2c_Write(uint8_t a)</div>
+<div class="line">{</div>
+<div class="line">int16_t i;</div>
+<div class="line">int16_t return_ack;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">for (i = 0; i &lt; 8; i++)</div>
+<div class="line-block">
+<div class="line">{</div>
+<div class="line">SetLowSCL();</div>
+<div class="line">if (a &amp; 0x80)</div>
+<div class="line">SetHighSDA();</div>
+<div class="line">else</div>
+<div class="line">SetLowSDA();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetHighSCL();</div>
+<div class="line-block">
+<div class="line">a &lt;&lt;= 1;</div>
+<div class="line">}</div>
+<div class="line">SetLowSCL();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">/* ack Read */</div>
+<div class="line-block">
+<div class="line">SetHighSDA();</div>
+<div class="line">SetHighSCL();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">if (I2CIN &amp; SDA)</div>
+<div class="line-block">
+<div class="line">return_ack = NO_I2C_ACK;</div>
+<div class="line">else</div>
+<div class="line">return_ack = OK_I2C_ACK;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetLowSCL();</div>
+</div>
+<div class="line-block">
+<div class="line">return (return_ack);</div>
+<div class="line-block">
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Read Transfer</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">uint8_t i2c_Read(int16_t ack)</div>
+<div class="line">{</div>
+<div class="line">int16_t i;</div>
+<div class="line">uint8_t caracter = 0x00;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetLowSCL();</div>
+<div class="line-block">
+<div class="line">SetHighSDA();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">for (i = 0; i &lt; 8; i++)</div>
+<div class="line-block">
+<div class="line">{</div>
+<div class="line">caracter = caracter &lt;&lt; 1;</div>
+<div class="line">SetHighSCL();</div>
+<div class="line">if (I2CIN &amp; SDA)</div>
+<div class="line">caracter = caracter + 1;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">SetLowSCL();</div>
+<div class="line-block">
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">if (ack)</div>
+<div class="line-block">
+<div class="line">{</div>
+<div class="line">SetLowSDA();</div>
+<div class="line">}</div>
+<div class="line">SetHighSCL();</div>
+<div class="line">SetLowSCL();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">return (caracter);</div>
+<div class="line-block">
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Read Byte</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">uint8_t i2c_ReadByte(uint8_t nAddress, uint8_t nRegister)</div>
+<div class="line">{</div>
+<div class="line">i2c_Start();</div>
+<div class="line">i2c_Write(nAddress);</div>
+<div class="line">i2c_Write(nRegister);</div>
+<div class="line">i2c_Start();</div>
+<div class="line">i2c_Write(nAddress | 0x01);</div>
+<div class="line">uint8_t ret = i2c_Read(0);</div>
+<div class="line">i2c_Stop();</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">return ret;</div>
+<div class="line-block">
+<div class="line">}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line-block">
+<div class="line">// I2C Write Byte</div>
+<div class="line">//------------------------------------------------------------------</div>
+<div class="line">void i2c_WriteByte(uint8_t nAddress, uint8_t nRegister, uint8_t nValue)</div>
+<div class="line">{</div>
+<div class="line">i2c_Start();</div>
+<div class="line">i2c_Write(nAddress);</div>
+<div class="line">i2c_Write(nRegister);</div>
+<div class="line">i2c_Write(nValue);</div>
+<div class="line">i2c_Stop();</div>
+<div class="line">}[/c]</div>
+</div>
+</div>
+</div>
+	
+        <hr>
+
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

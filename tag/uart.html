@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/paketnyj-protokol-obmena-dannymi.html"><h1>Пакетный протокол обмена данными</h1></a>
+Сб 23 Октябрь 2010
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><div class="section" id="id2">
+<h2>Общее описание протокола</h2>
+<p>В данной статье будет рассмотрен &nbsp;пакетный протокол обмена данными по
+любому последовательному интерфейсу. Он поддерживает как соединение типа
+точка-точка, так и работу в сети.</p>
+<p>Работа по протоколу синхронная, в сети может присутствовать только один
+мастер и неограниченное количество подчиненных устройств. Если быть
+точнее, количество устройств в сети ограничено цифрой 255, т.к. на адрес
+отводится один байт.</p>
+<p>За счет использования синхронного режима работы, обеспечивается
+гарантированная доставка сообщений. Каждое сообщение имеет
+подтверждение.</p>
+<p>Передача данных осуществляется в текстовом режиме. Это решение имеет как
+плюсы, так и минусы. К минусам следует отнести то, что для передачи
+одного байта на конечное устройство, фактически передается два байта
+(текстовое представление значения байта в шестнадцатеричном формате).</p>
+<p>Плюсы текстовой передачи:</p>
+<ul class="simple">
+<li>Отсутствие необходимости подмены байт при совпадении со значением
+служебных (байт-стаффинг);</li>
+<li>Возможность работы из любой терминальной программы.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>Техническая реализация</h2>
+<p>Рассмотрим формат сообщения:</p>
+<div class="line-block">
+<div class="line">[text]: 00 11 22 33 .. 33 44 0D 0A</div>
+<div class="line-block">
+<div class="line">| | &nbsp;| &nbsp;| &nbsp;| &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp;| &nbsp;|</div>
+<div class="line">| | &nbsp;| &nbsp;| &nbsp;| &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp;| &nbsp;EOF</div>
+<div class="line">| | &nbsp;| &nbsp;| &nbsp;| &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp;CR</div>
+<div class="line">| | &nbsp;| &nbsp;| &nbsp;DATA &nbsp; &nbsp; CRC</div>
+<div class="line">| | &nbsp;| &nbsp;LEN</div>
+<div class="line">| | &nbsp;CMD</div>
+<div class="line">| ADDRESS</div>
+<div class="line">SOF[/text]</div>
+</div>
+</div>
+<p><strong>SOF</strong> - стартовый байт, в моем варианте соответствует символу &quot;:&quot;
+(двоеточие), позволяет однозначно идентифицировать начало пакета данных;</p>
+<p><strong>ADDRESS</strong> - адрес подчиненного устройства;</p>
+<p><strong>CMD</strong> - код команды;</p>
+<p><strong>LEN</strong> - длина полезных данных;</p>
+<p><strong>DATA</strong> - полезные данные;</p>
+<p><strong>CRC</strong> - контрольная сумма пакета, вычисленная по алгоритму CRC8;</p>
+<p><strong>CR, EOF</strong> - два байта, соответствующие концу пакета (0x0D - возврат
+каретки, 0x0A - перевод строки).</p>
+<p>Длина сообщения в данной реализации ограничена 255 байтами, для ее
+увеличения необходимо модифицировать формат пакета, увеличив количество
+байт, отвечающих за передачу длины полезных данных и использовав CRC16
+или CRC32 для контроля целостности данных.</p>
+<p>Код реализации протокола на стороне микроконтроллера очень легко может
+быть перенесен на любую платформу. Для этого необходимо заменить
+описания обработчиков прерываний по приему и передаче данных по
+последовательному интерфейсу и сам код отправки и получения байта
+данных. Буду рад, если вы поделитесь своими наработками в этой области,
+я добавлю их на эту страницу.</p>
+<p>На данный момент, протокол на стороне МК реализован на платформах
+MSP430F1x и MSP430F2x. На стороне ПК протокол реализован с виде
+DLL-библиотеки, написанной на языке C#.</p>
+</div>
+<div class="section" id="id4">
+<h2>Ссылки для скачивания</h2>
+<p><a class="reference external" href="/uploads/2010/10/tbcp_msp430f2x.zip">Реализация протокола на платформе MSP430F2x (проект на C для
+IAR);</a></p>
+<p><a class="reference external" href="/uploads/2010/10/TBCPSerialPort.zip">Реализация протокола на стороне ПК (проект для Visual Studio
+2010);</a></p>
+<p><a class="reference external" href="/uploads/2010/10/SmartAlarm.zip">Пример применения протокола в программе для ПК (проект для Visual
+Studio
+2010).</a></p>
+</div>
+<div class="section" id="id5">
+<h2>Благодарности</h2>
+<p>Идеи для реализации протокола были мной взяты из проектов
+<a class="reference external" href="http://digit-el.com/files/open/wake/wake.html">WAKE</a> и
+<a class="reference external" href="http://www.freemodbus.org/">FreeMODBUS</a>.</p>
+</div>
+</div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/uart.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/hello-world-dlya-stm32-ili-s-chego-nachat.html"><h1>&quot;Hello World&quot; для STM32 или с чего начать</h1></a>
+Ср 12 Октябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><div class="section" id="id1">
+<h2>Введение</h2>
+<blockquote>
+Все описанные в статье пункты, за исключением раздела с прошивкой
+процессора с помощью утилиты ST-Link Utility, могут быть выполнены
+как на системе с ОС Linux, так и Windows.</blockquote>
+<p>В этой статье хочется рассказать о том, как сделать первые шаги в
+освоении микроконтроллеров STM32 производства ST Microelectronics. Они
+выполнены на базе ядра ARM Cortex-M3 и делятся на несколько групп:</p>
+<ul class="simple">
+<li><strong>Value line</strong> STM32F100xx - 24 МГц CPU;</li>
+<li><strong>Access line</strong> STM32F101xx - 36 МГц CPU, до 1 Мб Flash-памяти;</li>
+<li><strong>USB access line</strong> STM32F102xx - 48 МГц CPU, содержат USB FS;</li>
+<li><strong>Performance line</strong> STM32F103xx&nbsp; - 72 МГц, до 1 Мб Flash-памяти, USB
+и CAN;</li>
+<li><strong>Connectivity line</strong> STM32F105/107xx - 72 МГц CPU, содержат Ethernet
+MAC, CAN и USB 2.0 OTG.</li>
+</ul>
+<p>Рассказ будет основан на примере отладочной платы STM32VL-Discovery, на
+борту которой находится процессор STM32F100RB и отладочный интерфейс
+ST-Link.</p>
+<p><img alt="image0" src="/uploads/images/00/00/01/2011/01/25/f98586.jpg" /></p>
+<p><em>Рис. 1. Фотография отладочной платы STM32VL-Discovery.</em></p>
+<p><em>Характеристики платы:</em></p>
+<ul class="simple">
+<li>STM32F100RB микроконтроллер, 128 KB Flash, 8 KB RAM в корпусе 64-pin
+LQFP;</li>
+<li>Отладчик ST-Link, который может работать и как отдельный отладчик (с
+SWD-разъемом);</li>
+<li>Питание от USB или внешнего источника на 5 V или 3.3 V;</li>
+<li>Может питать внешние цепи на 5 V и 3 V;</li>
+<li>Два пользовательских светодиода (зеленый и голубой);</li>
+<li>Одна пользовательская кнопка;</li>
+<li>Разъем со всеми портами ввода-вывода для быстрого подключения и
+макетирования.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">Перед тем как продолжить, необходимо выполнить действия, описанные в статье про настройку среды разработки:</div>
+</div>
+</div>
+<p><strong>`Настройка связки Eclipse и ARM GCC в
+Linux &lt;http://www.levap.ru/300&gt;`__</strong></p>
+</div>
+<div class="section" id="id2">
+<h2>Необходимые компоненты</h2>
+<p>Для начала работы с данной отладочной платой, необходимо скачать
+следующие компоненты:</p>
+<p><em>Обязательные:</em></p>
+<ul class="simple">
+<li><a class="reference external" href="http://embedded.su/uploads/files/STM32Test.zip">Демонстрационный проект для
+Eclipse</a>;</li>
+<li><a class="reference external" href="http://www.st.com/internet/com/SOFTWARE_RESOURCES/TOOL/DEVICE_PROGRAMMER/um0892.zip">STM32 ST-Link
+Utility</a>.</li>
+</ul>
+<p><em>Рекомендуемые:</em></p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.st.com/internet/com/SOFTWARE_RESOURCES/SW_COMPONENT/FIRMWARE/stm32f10x_stdperiph_lib.zip">ARM-based 32-bit MCU STM32F10xxx standard peripheral
+library.</a></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>Демонстрационный проект</h2>
+<p>Демонстрационный проект, который прилагается к данной статье, содержит
+минимум необходимых файлов для успешной сборки программы, целью которой
+является включение и выключение двух пользовательских светодиодов с
+определенной задержкой.</p>
+<p><em>Файлы из состава проекта, на которые следует обратить внимание:</em></p>
+<ul class="simple">
+<li><strong>stm32f100rb_flash.ld</strong> - скрипт для линкера, программа
+располагается во Flash;</li>
+<li><strong>startup_stm32f10x_ld_vl.S</strong> - так называемый &quot;Startup&quot;-файл,
+производящий инициализацию стека, векторов прерываний и
+низкоуровневую инициализацию процессора;</li>
+<li><strong>system_stm32f10x.c</strong> - содержит функцию SystemInit(), которая
+настраивает систему тактирования. Эта функция вызывается из
+Startup-файла и выполняется до входа в main();</li>
+<li><strong>stm32f10x_it.c</strong> - содержит заглушки обработчиков аппаратных
+исключений, которые помогают при отладке программы;</li>
+<li><strong>main.c</strong> - собственно, main().</li>
+</ul>
+<p>Все эти файлы можно найти в составе библиотеки периферии (STM32F10xxx
+standard peripheral library). Для удобства понимания, я собрал их все в
+одном месте в виде минимального стартового комплекта.</p>
+<blockquote>
+Я всегда компоную проект исходя из принципа: абсолютно все файлы,
+которые в нем задействованы, должны находиться в директории проекта.
+В том числе заголовочные файлы, библиотечные, разнообразные скрипты
+и т.п. Это предохраняет от ситуации, когда изменения, вносимые в
+отдельные файлы, могут повлиять на сборку нескольких проектов.
+Крайне рекомендую такой подход, не стоит бояться лишний раз
+скопировать файлы - это поможет в дальнейшем избежать проблем.</blockquote>
+</div>
+<div class="section" id="id4">
+<h2>Импорт демонстрационного проекта</h2>
+<ol class="arabic simple">
+<li>Распакуйте архив с проектом в свое рабочее пространство (Workspace);</li>
+<li>В главном меню Eclipse выберите пункт <em>File &gt; Import</em>;</li>
+<li>В появившемся окне выберите <em>General &gt; Existing Project ...</em>;</li>
+<li>Нажмите кнопку Browse и выберите директорию с проектом. Если он
+находится вне рабочего пространства, установите галочку <em>Copy
+projects into workspace</em>.</li>
+</ol>
+<p><img alt="image1" src="/uploads/images/00/00/01/2011/01/26/2caa93.png" /></p>
+<p><em>Рис. 2. Импорт проекта в рабочее пространство.</em></p>
+</div>
+<div class="section" id="id5">
+<h2>Настройка параметров проекта</h2>
+<p>При правильном импорте проекта, почти все настройки должны сохраниться,
+однако необходимо удостовериться в этом перед первой попыткой
+компиляции.</p>
+<p>Для отображения окна свойств проекта, нажмите правой кнопкой мыши на его
+имени и выберите пункт <em>Properties</em>.</p>
+<p>Нас будут интересовать:</p>
+<p><strong>1. Настройки Toolchain</strong></p>
+<p>Для отображения окна настроек, откройте подпункт <em>C/C++ Build &gt;
+Settings</em>.</p>
+<p>Linker: <em>ARM Sourcery Linker &gt; General</em>.</p>
+<p><img alt="image2" src="/uploads/images/00/00/01/2011/01/26/1cf97d.png" /></p>
+<p><em>Рис. 3. Настройки линкера</em></p>
+<p>Поскольку путь к скрипту сборщика указывается абсолютный, необходимо
+исправить его в соответствии с расположением файла
+<em>stm32f100rb_flash.ld</em> у Вас на диске.</p>
+<p>Flash Image: <em>ARM Sourcery Create Flash Image</em>.</p>
+<p><img alt="image3" src="/uploads/images/00/00/01/2011/01/26/fac853.png" /></p>
+<p><em>Рис. 4. Настройка генератора бинарного файла прошивки.</em></p>
+<p>С помощью данного пункта можно выбрать формат бинарного файла прошивки,
+который будет сгенерирован в процессе сборки. Так как мы будем
+использовать утилиту STM32 ST-Link Utility, необходим формат Binary.</p>
+<p><strong>2. Пути к заголовочным файлам</strong></p>
+<p>Для отображения настроек путей, откройте подпункт <em>C/C++ General &gt; Paths
+and Symbols</em>.</p>
+<p><img alt="image4" src="/uploads/images/00/00/01/2011/01/26/414ea7.png" /></p>
+<p><em>Рис. 5. Окно редактирования путей</em></p>
+</div>
+<div class="section" id="id6">
+<h2>Сборка проекта</h2>
+<p>После того, как все настройки приведены в порядок, можно запускать
+сборку проекта. Для этого нажмите правой кнопкой мыши на имени проекта и
+выберите пункт <em>Build project</em>.</p>
+<p>Если сборка прошла успешно, в окошке терминала будет выведен текст с
+результатом:</p>
+<div class="line-block">
+<div class="line">[text]Invoking: ARM Sourcery Windows GNU Print Size</div>
+<div class="line-block">
+<div class="line">arm-none-eabi-size --format=berkeley STM32Test.elf</div>
+<div class="line">text data bss dec hex filename</div>
+<div class="line">6428 56 132 6616 19d8 STM32Test.elf</div>
+<div class="line">Finished building: STM32Test.siz[/text]</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Прошивка процессора</h2>
+<p>Для прошивки процессора выполните следующие действия:</p>
+<ul class="simple">
+<li>Подключите отладочную плату к свободному разъему USB и дождитесь
+окончания установки драйвера (специального драйвера не требуется);</li>
+<li>Запустите утилиту STM32 ST-Link Utility;</li>
+<li>В меню программы выберите пункт <em>Target &gt; Connect</em>;</li>
+</ul>
+<p><img alt="image5" src="/uploads/images/00/00/01/2011/01/26/48b7f9.png" /></p>
+<p><em>Рис. 6. Успешное соединение с целевым процессором.</em></p>
+<ul class="simple">
+<li>В меню программы выберите пункт <em>File &gt; Open file</em>;</li>
+<li>В появившемся диалоговом окне перейдите в директорию Debug Вашего
+проекта и выберите файл <em>STM32Test.hex</em>. Если он не отображается,
+установите фильтр на отображение всех файлов (*.*);</li>
+<li>На предложение программы выполнить загрузку прошивки, нажмите <em>OK</em>;</li>
+<li>Далее кнопку <em>Program</em>;</li>
+<li>После завершения загрузки прошивки, в меню программы выберите пункт
+<em>Target &gt; MCU Core</em>, в появившемся окне нажмите кнопку Run. Или
+отключите питание отладочной платы, а затем включите. Светодиоды
+должны вспыхивать примерно раз в пол секунды.</li>
+</ul>
+<p><img alt="image6" src="/uploads/images/00/00/01/2011/01/27/b029f8.png" /></p>
+<p><em>Рис. 7. Запуск микропрограммы на исполнение.</em></p>
+<p>Поздравляю! Теперь на основе этого простого проекта можно начинать
+наращивать функционал и создавать интересные и полезные устройства.</p>
+</div>
+</div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/stm32discovery.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

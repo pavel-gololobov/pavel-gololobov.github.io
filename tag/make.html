@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/eclipse-mspgcc.html"><h1>Установка и настройка Eclipse + MSPGCC</h1></a>
+Чт 26 Ноябрь 2009
+
+by <a class="url fn" href="/author/levap.html">levap</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><div class="section" id="id1">
+<h2>Введение</h2>
+<p>Связка свободно распространяемой среды разработки Eclipse и компилятора
+MSPGCC позволяет осуществить полный цикл разработки для
+микроконтроллеров семейства MSP430 без каких бы то ни было
+ограничений.&nbsp;Toolchain состоит из трех компонентов:</p>
+<ul class="simple">
+<li>Eclipse в качестве среды разработки;</li>
+<li>mspgcc в качестве компилятора и компоновщика;</li>
+<li>GDB как отладчик.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>Необходимые компоненты</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/galileosr1">Eclipse IDE for C/C++
+Developers</a></li>
+<li><a class="reference external" href="http://www.java.com/ru/download/index.jsp">Java Runtime
+Environment</a></li>
+<li><a class="reference external" href="http://mesh.dl.sourceforge.net/sourceforge/mspgcc/mspgcc-20081230.exe">MSPGCC версии
+30.12.2008</a></li>
+<li>MinGW GNU Compiler Collection (GCC), and GNU Binutils. <a class="reference external" href="http://sourceforge.net/projects/mingw/">Загрузка
+автоматического
+установщика</a></li>
+<li>Обновленные версии файлов &quot;hil.dll&quot; и &quot;msp430.dll&quot;. <a class="reference external" href="http://www.levap.ru/files/msp430/msp430a.zip">Ссылка для
+загрузки</a>.</li>
+</ul>
+</div>
+<div class="section" id="mspgcc">
+<h2>Установка MSPGCC</h2>
+<p>Установка проходит в автоматическом режиме. После завершения установки,
+замените файлы &quot;hil.dll&quot; и &quot;msp430.dll&quot; в каталоге &quot;/mspgcc/bin&quot; на
+новые версии.</p>
+<p>Содержимое пакета:</p>
+<ul class="simple">
+<li><em>&quot;\mspgcc\bin&quot;</em> – директория содержит исполняемые файлы и
+библиотеки;</li>
+<li><em>&quot;\mspgcc\docs</em>&quot; – документация в формате PDF и текстовые файлы с
+описанием входящих в состав пакета программ;</li>
+<li><em>&quot;\mspgcc\msp430\include&quot;</em> – заголовочные файлы;</li>
+<li><em>&quot;\mspgcc\examples</em>&quot; – примеры кода на C и ASM, с них мы и начнем
+знакомство со средой и компилятором.</li>
+</ul>
+</div>
+<div class="section" id="mingw">
+<h2>Установка MinGW</h2>
+<p>Установка проходит в автоматическом режиме. Помимо компонентов по
+умолчанию, необходимо установить пакет MinGW Make. После установки,
+добавим путь к директории <em>&quot;MinGW/bin&quot;</em> в переменную окружения <em>&quot;Path&quot;</em>.
+Для этого перейдем в Control Panel/System/Advanced/Environment
+Variables/Path/Edit -&gt; добавим в конец <em>&quot;;c:\MinGW\bin&quot;</em>. Теперь нужно
+перезагрузить компьютер.</p>
+</div>
+<div class="section" id="eclipse-jre">
+<h2>Установка Eclipse и JRE</h2>
+<p>Сначала&nbsp; необходимо установить виртуальную машину Java, если она не
+установлена на компьютере.</p>
+<p>Установка самой среды разработки Eclipse не требуется, достаточно
+распаковать архив в нужную директорию.</p>
+<p>Теперь запускаем среду разработки. Первое, что предложит программа – это
+выбрать расположение рабочей директории (Workspace), которая будет
+содержать Ваши проекты и файлы настройки. Подобных Workspace-ов можно
+иметь любое количество и переключаться между ними в процессе работы.</p>
+<p>[caption id=&quot;attachment_72&quot; align=&quot;alignnone&quot; width=&quot;598&quot;
+caption=&quot;Выбор рабочей директории&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_1.png"><img alt="Выбор рабочей директории" src="/uploads/2009/11/eclipse_1.png" /></a>[/caption]</p>
+<p>Создадим на диске С: директорию C:\Workspace и укажем программе путь к
+ней. Для того, чтобы избавиться от данного вопроса при последующих
+запусках программы, можно установить галочку <em>Use this as the default
+and do not ask again</em>.</p>
+<p>Итак, после запуска программы, мы видим окно приветствия. Закроем его
+(если захотите еще раз увидеть, сделать это можно через пункт меню
+Help/Welcome).</p>
+<p>[caption id=&quot;attachment_73&quot; align=&quot;alignnone&quot; width=&quot;600&quot;
+caption=&quot;Главное окно Eclipse&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_2.png"><img alt="Главное окно Eclipse" src="/uploads/2009/11/eclipse_2-600x419.png" /></a>[/caption]</p>
+<p>Что ж, теперь приступим к самому интересному - создадим первый проект.</p>
+</div>
+<div class="section" id="id3">
+<h2>Создание проекта</h2>
+<p>Существует два способа работы с проектом:</p>
+<ol class="arabic simple">
+<li>Опции компиляции и сборки задаются средой разработки. Хорошее
+описание данного способа можно найти <a class="reference external" href="http://msp430.ms.funpic.de/doku.php?id=msp430:entwicklungumgebung">по
+ссылке</a>
+(на немецком языке). В данном случае Вы полностью зависите от среды
+разработки Eclipse, работа с проектом возможна только из нее;</li>
+<li>Компиляция и сборка осуществляются с помощью написанного вручную
+Make-файла. В этом варианте Вы получаете абсолютно независимый
+проект, работать с которым можно из любой среды разработки, либо
+напрямую с помощью утилиты Make.</li>
+</ol>
+<p>В этой статье я рассмотрю второй метод, который принял для себя
+стандартом в оформлении проектов.</p>
+<p>Выберем в меню <em>File/New/C Project</em>.</p>
+<p>Далее выбираем <em>Makefile project/Empty Project/-- Other Toolchain --</em></p>
+<p>[caption id=&quot;attachment_75&quot; align=&quot;alignnone&quot; width=&quot;512&quot;
+caption=&quot;Новый проект&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_3.png"><img alt="Новый проект" src="/uploads/2009/11/eclipse_3.png" /></a>[/caption]</p>
+<p>Введем имя проекта <strong>leds</strong>, жмем <em>Next</em>, затем <em>Finish</em>.</p>
+<p>В обозревателе проектов (<em>Project Explorer</em>) появился наш новый проект,
+пока совершенно пустой.</p>
+<p>[caption id=&quot;attachment_76&quot; align=&quot;alignnone&quot; width=&quot;257&quot;
+caption=&quot;Обозреватель проектов&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_4.png"><img alt="Обозреватель проектов" src="/uploads/2009/11/eclipse_4.png" /></a>[/caption]</p>
+<p>Теперь при помощи проводника Windows создадим директории <em>&quot;leds\bin&quot;</em> и
+<em>&quot;leds\source</em>&quot;.</p>
+<p>В качестве примера возьмем проект из пакета MSPGCC, расположенный в
+<em>&quot;C:\mspgcc\examples\leds\&quot;.</em> Скопируем в директорию <em>&quot;\leds\bin&quot;</em>
+файл <strong>makefile</strong>, а в директорию <em>&quot;leds\source&quot;</em> файлы <strong>main.c</strong>,
+<strong>hardware.h.</strong></p>
+<p>В <em>Project Explorer</em> нажимаем правой кнопкой мыши на имени нашего
+проекта и жмем <em>Refresh</em>, или просто нажимаем <em>F5</em>, и видим новые файлы.</p>
+<p>[caption id=&quot;attachment_93&quot; align=&quot;alignnone&quot; width=&quot;250&quot;
+caption=&quot;Файлы проекта&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_10.png"><img alt="Файлы проекта" src="/uploads/2009/11/eclipse_10.png" /></a>[/caption]</p>
+<p>В настройках проекта (<em>Project/Properties/C/C++ Build</em>), необходимо
+указать путь к утилите make из состава MinGW, а также, каталог <strong>bin</strong>
+как директорию построения проекта.</p>
+<p>[caption id=&quot;attachment_126&quot; align=&quot;alignnone&quot; width=&quot;597&quot;
+caption=&quot;Настройка билдера&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_91.png"><img alt="Настройка билдера" src="/uploads/2009/11/eclipse_91.png" /></a>[/caption]</p>
+<p>[caption id=&quot;attachment_124&quot; align=&quot;alignnone&quot; width=&quot;597&quot;
+caption=&quot;Binary Parser&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_14.png"><img alt="Binary Parser" src="/uploads/2009/11/eclipse_14.png" /></a>[/caption]</p>
+<p>Также, добавим каталог, содержащий заголовочные файлы для MSP430.</p>
+<p>[caption id=&quot;attachment_127&quot; align=&quot;alignnone&quot; width=&quot;597&quot;
+caption=&quot;Директории включения&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_121.png"><img alt="Директории включения" src="/uploads/2009/11/eclipse_121.png" /></a>[/caption]</p>
+<p>Для утилиты <em>make</em>, осуществляющей сборку программы, необходим
+специальный файл, называемый Makefile, который содержит в себе варианты
+построения проекта, опции компилятора и сборщика, описание входящих в
+его состав модулей и т.д. Классический метод работы с Makefile
+подразумевает его ручную правку и внесение изменений при модификациях
+проекта. Я расскажу о другом методе работы с Make-файлом, который я
+подсмотрел в <a class="reference external" href="http://www.linux.org.ru/books/GNU/Gmake.htm">этой
+статье</a>.</p>
+</div>
+<div class="section" id="makefile">
+<h2>Makefile</h2>
+<p>Не буду вдаваться в подробности написания Make-файла, при желании эту
+информацию можно легко найти. Приведу сразу свой пример, а после дам
+краткие пояснения.</p>
+<div class="line-block">
+<div class="line">[text]</div>
+<div class="line-block">
+<div class="line"># - bin</div>
+<div class="line"># - doc</div>
+<div class="line"># - source</div>
+<div class="line"># |- subdir</div>
+<div class="line"># |-- *.c</div>
+<div class="line"># |- *.c</div>
+</div>
+</div>
+<p># Edit</p>
+<div class="line-block">
+<div class="line"># Имя проекта</div>
+<div class="line-block">
+<div class="line">NAME = leds</div>
+<div class="line"># Целевой процессор</div>
+<div class="line">CPU = msp430x1611</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"># Компилятор</div>
+<div class="line-block">
+<div class="line">CC = msp430-gcc</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"># Флаги компилятора и сборщика</div>
+<div class="line-block">
+<div class="line">CFLAGS = -mmcu=${CPU} -g -O2 -Wall</div>
+<div class="line">LDFLAGS = -lmspgcc</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"># Опции программатора</div>
+<div class="line-block">
+<div class="line">BSLOPT = -c2 --invert-reset -e -p -v -r</div>
+<div class="line">JTAGOPT = -e</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"># Директории с исходниками относительно makefile</div>
+<div class="line-block">
+<div class="line">SOURCE_DIRS = ../source</div>
+</div>
+</div>
+<p># Do not Edit</p>
+<div class="line-block">
+<div class="line">SOURCE = $(wildcard $(addsuffix /*.c, $(SOURCE_DIRS)))</div>
+<div class="line-block">
+<div class="line">OBJECTS_DIRS = $(notdir $(SOURCE))</div>
+<div class="line">OBJECTS = $(OBJECTS_DIRS:.c=.o)</div>
+</div>
+</div>
+<p>.PHONY: all FORCE clean download download-jtag download-bsl</p>
+<p>all: ${NAME}.elf ${NAME}.a43 ${NAME}.lst ${NAME}.d</p>
+<div class="line-block">
+<div class="line">${NAME}.elf: ${OBJECTS}</div>
+<div class="line-block">
+<div class="line">${CC} -mmcu=${CPU} -o $&#64; ${OBJECTS} ${LDFLAGS}</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">${NAME}.a43: ${NAME}.elf</div>
+<div class="line-block">
+<div class="line">msp430-objcopy -O ihex $^ $&#64;</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">${NAME}.lst: ${NAME}.elf</div>
+<div class="line-block">
+<div class="line">msp430-objdump -dSt $^ &gt;$&#64;</div>
+<div class="line">&#64;echo &quot;----- RAM/Flash Usage -----&quot;</div>
+<div class="line">msp430-size $^</div>
+</div>
+</div>
+<p>download: download-bsl</p>
+<div class="line-block">
+<div class="line">download-jtag: all</div>
+<div class="line-block">
+<div class="line">msp430-jtag ${JTAGOPT} ${NAME}.elf</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">download-bsl: all</div>
+<div class="line-block">
+<div class="line">msp430-bsl ${BSLOPT} ${NAME}.a43</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">clean:</div>
+<div class="line-block">
+<div class="line">rm -f ${NAME}.elf ${NAME}.a43 ${NAME}.lst ${OBJECTS} ${NAME}.d</div>
+</div>
+</div>
+<p>VPATH := $(SOURCE_DIRS)</p>
+<div class="line-block">
+<div class="line">#dummy target as dependecy if something has to be build everytime</div>
+<div class="line-block">
+<div class="line">FORCE:</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">${NAME}.d:</div>
+<div class="line-block">
+<div class="line">$(CC) -MM ${CFLAGS} ${SOURCE} &gt; ${NAME}.d</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">include $(wildcard *.d)</div>
+<div class="line-block">
+<div class="line">[/text]</div>
+</div>
+</div>
+<p>Представленный Make-файл автоматически строит список исходных файлов,
+список объектных файлов и зависимости.</p>
+<p>Структура проекта, которую я использую, выглядит следующим образом:</p>
+<ul class="simple">
+<li><strong>bin</strong><ul>
+<li>makefile</li>
+</ul>
+</li>
+<li><strong>doc</strong></li>
+<li><strong>source</strong><ul>
+<li><strong>subdir</strong><ul>
+<li>module.c</li>
+<li>module.h</li>
+</ul>
+</li>
+<li>main.c</li>
+<li>main.h</li>
+</ul>
+</li>
+</ul>
+<p>Для того, чтобы <em>make</em> успешно построил список исходников, необходимо
+отредактировать переменную <strong>SOURCE_DIRS</strong> в соответствии со структурой
+конкретного проекта. Укажите все директории, которые содержат исходные
+тексты, через пробел, относительно директории <em>/bin</em>, в которой
+располагается <em>makefile</em>, и в которую будут помещаться выходные файлы
+проекта.</p>
+<p>Конкретный make-файл не включает работу с исходными файлами на
+ассемблере. При желании это легко можно исправить.</p>
+<p>Скопируем представленный выше текст Make-файла и вставим его в файл
+<em>leds/bin/makefile</em> полностью заменив содержимое.</p>
+<p>Теперь мы можем скомпилировать проект и получить на выходе бинарный файл
+прошивки. Для этого выберем пункт меню <em>Project/Build Project</em>. Или
+нажмите правой кнопкой мыши на имени проекта в обозревателе.</p>
+<p>После того, как процесс компиляции и сборки будет завершен, в директории
+проекта появятся новые файлы.</p>
+<p>[caption id=&quot;attachment_95&quot; align=&quot;alignnone&quot; width=&quot;221&quot;
+caption=&quot;Скомпилированный проект&quot;]<a class="reference external" href="/uploads/2009/11/eclipse_11.png"><img alt="Скомпилированный проект" src="/uploads/2009/11/eclipse_11.png" /></a>[/caption]</p>
+</div>
+<div class="section" id="id4">
+<h2>Отладка</h2>
+<p>Про работу с отладчиком GDB в среде Eclipse можно прочитать в статье:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.levap.ru/2009/12/debug-eclipse-gdb/">Отладка программ для MSP430 с помощью Eclipse и
+GDB</a></li>
+</ul>
+</div>
+</div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/make.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

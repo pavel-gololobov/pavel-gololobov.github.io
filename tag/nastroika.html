@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/sozdanie-bazy-i-polzovatelya-mysql.html"><h1>Создание базы и пользователя MySQL</h1></a>
+Чт 27 Октябрь 2011
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><div class="line-block">
+<div class="line"><img alt="image0" src="/uploads/2011/10/mysql_logo-150x109.jpg" /></div>
+</div>
+<p>Как правило, в случае обыкновенного виртуального хостинга, имя
+пользователя базы данных и пароль выдаются хостинг-провайдером, остается
+только внести соответствующие настройки в конфигурационные файлы проекта
+или ввести во время установки.</p>
+<p>Если же сайт разворачивается на отдельном сервере - выделенном или
+виртуальном, настройка системы (веб-, и почтовый сервер, база данных и
+т.п.) ложится на ваши плечи.</p>
+<p>При настройке базы данных, правильно под каждый проект, размещенный на
+сервере, создавать собственную базу данных и пользователя, имеющего
+доступ только к этой базе.</p>
+<div class="line-block">
+<div class="line">Для этого необходимо выполнить следующие команды через Shell:</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">1. Запустить консоль MySQL с правами <em>root</em>.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">[text]$ mysql -u root -p</div>
+<div class="line-block">
+<div class="line">Enter password: (ввести пароль пользователя root)[/text]</div>
+</div>
+</div>
+<p>2. После входа в консоль создаем новую базу данных <em>newdatabase</em> для
+нашего проекта.</p>
+<div class="line-block">
+<div class="line">[text]mysql&gt; create database newdatabase;</div>
+<div class="line-block">
+<div class="line">Query OK, 1 row affected (0.00 sec)[/text]</div>
+</div>
+</div>
+<p>3. Разрешаем подключение к серверу базы данных пользователя <em>newuser</em> с
+адреса <em>localhost</em> и паролем <em>newpasswd</em>.</p>
+<div class="line-block">
+<div class="line">[text]mysql&gt; grant usage on *.* to <a class="reference external" href="mailto:newuser&#64;localhost">newuser&#64;localhost</a> identified by 'newpasswd';</div>
+<div class="line-block">
+<div class="line">Query OK, 0 rows affected (0.00 sec)[/text]</div>
+</div>
+</div>
+<p>4. Даем пользователю <em>newuser</em> права на полный доступ к базе
+<em>newdatabase</em>.</p>
+<div class="line-block">
+<div class="line">[text]mysql&gt; grant all privileges on newdatabase.* to <a class="reference external" href="mailto:newuser&#64;localhost">newuser&#64;localhost</a>;</div>
+<div class="line-block">
+<div class="line">Query OK, 0 rows affected (0.00 sec)[/text]</div>
+</div>
+</div>
+<ol class="arabic simple" start="5">
+<li>Выходим из консоли.</li>
+</ol>
+<p>[text]mysql&gt; exit;[/text]</p>
+<ol class="arabic simple" start="6">
+<li>Проверяем настройку.</li>
+</ol>
+<div class="line-block">
+<div class="line">[text]$ mysql -u newuser -p'newpasswd' newdatabase</div>
+<div class="line-block">
+<div class="line">Your MySQL connection id is 12</div>
+<div class="line">Server version: 5.0.38-Ubuntu_0ubuntu1-log Ubuntu 7.04 distribution</div>
+</div>
+</div>
+<p>Type 'help;' or '\h' for help. Type '\c' to clear the buffer.</p>
+<p>mysql&gt;[/text]</p>
+<p>Если все получилось, теперь в настройках скриптов можно указывать
+свежесозданную базу данных и пользователя, не боясь в случае их утечки
+потерять данные в других базах.</p>
+</div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/nastroika.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

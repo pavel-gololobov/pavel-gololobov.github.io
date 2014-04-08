@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Современные Электронные Технологии</title>
+    <meta name="description" content="">
+    <meta name="author" content="Pavel V. Gololobov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="">Современные Электронные Технологии</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+            
+        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="/otkrytaya-apparatnaya-platforma-maple-i-plata-mooboard.html"><h1>Открытая аппаратная платформа Maple и плата MooBoard</h1></a>
+Чт 19 Январь 2012
+
+by <a class="url fn" href="/author/admin.html">admin</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><div class="section" id="arduino">
+<h2>Arduino</h2>
+<p><a class="reference external" href="/uploads/2012/01/arduino_uno_test.jpg"><img alt="image0" src="/uploads/2012/01/arduino_uno_test-150x150.jpg" /></a>Наверное, все слышали про электронные платы
+<a class="reference external" href="http://arduino.cc/">Arduino</a>, которые являются самой популярной
+платформой для различных радиолюбительских конструкций. В основе платы
+лежит 8-битный микроконтроллер AVR, который при всех своих плюсах имеет
+и значительное количество минусов, основной из которых - ограниченные
+ресурсы. Такие как память, линии ввода-вывода, поддерживаемые
+интерфейсы.</p>
+<p>Думаю, главной причиной успеха Arduino, особенно среди новичков, стала
+фирменная среда разработки, содержащая обширную программную&nbsp;библиотеку с
+хорошо документированным API. Среда разработки основана на другой
+открытой платформе,&nbsp;<a class="reference external" href="http://wiring.org.co/">Wiring</a>,&nbsp;и реализует
+некую обертку над языком С/С++, позволяя работать не с регистрами
+процессора напрямую, а с API библиотеки. Основной упор сделан на
+простоту освоения и разработки приложений - пользователю практически не
+приходится задумываться о низкоуровневых вопросах, все решается вызовом
+соответствующих функций встроенной библиотеки. Прошивка процессора тоже
+производится непосредственно из среды разработки по интерфейсу USB, что
+исключает необходимость приобретения или изготовления дополнительного
+оборудования.</p>
+</div>
+<div class="section" id="maple">
+<h2>Maple</h2>
+<p><a class="reference external" href="/uploads/2012/01/Maple-r5.jpg"><img alt="image1" src="/uploads/2012/01/Maple-r5-150x123.jpg" /></a>Однако, отладочные платы для новичков не ограничиваются одной
+лишь Arduino. Другой популярной платформой является Maple от небольшой
+компании <a class="reference external" href="http://leaflabs.com/">LeafLabs</a>, которая так же является
+открытой и основана на Arduino и Wiring. Зато в отличие от последних, в
+основе аппаратного решения лежат современные процессоры STM32 с ядром
+ARM Cortex-M3, которые содержат на борту до 512К памяти, работают на
+частоте до 72 МГц и поддерживают множество интерфейсов.</p>
+<p>Некоторые из плат Maple аппаратно совместимы с модулями расширения
+Arduino, что позволяет использовать их в своих проектах. Также, за счет
+совместимости API, многие программные библиотеки, разработанные для
+Arduino, могут работать и с Maple.</p>
+<p>Загрузка исполняемого кода производится, как и в случае с Arduino, прямо
+из среды разработки по интерфейсу USB с помощью специального загрузчика,
+предварительно прошитого в память микроконтроллера.</p>
+<p>В ноябре прошлого года <a class="reference external" href="http://leaflabs.com/2011/11/were-teaming-up-with-wiring/">стало
+известно</a>,
+что LeafLabs объединяют усилия с Wiring для интеграции поддержки
+платформы Maple в существующую среду разработки и библиотеку Wiring, что
+сделает ее еще более универсальной.</p>
+<p>Таким образом, Maple можно считать наиболее современной и перспективной
+платформой для разработки радиолюбительских устройств.</p>
+<p>Maple-совместимые платы производит не только&nbsp;LeafLabs, но и,
+например,&nbsp;<a class="reference external" href="http://www.olimex.com/dev/olimexino-stm32.html">Olimex</a>.</p>
+<div class="section" id="mooboard">
+<h3>MooBoard</h3>
+<p>Я тоже не смог удержаться и сделал собственный клон Maple с блекджеком и
+т.д., который отличается от оригинала форм-фактором (я отказался от
+аппаратной совместимости с Arduino, т.к. считаю его устаревшим решением)
+и установленным процессором - в моем случае это корпус LQFP100.</p>
+<p>Микроконтроллеры STM32 имеют замечательную особенность - они полностью
+pin-to-pin совместимы между собой в пределах выбранного посадочного
+места, что дает свободу в формировании окончательной функциональности
+платы простой установкой контроллера с необходимыми возможностями.</p>
+<p>Пока плата существует в виде нескольких опытных образцов, которые
+требуют незначительных доработок. Изначально она разрабатывалась для
+собственных нужд, т.к. часто требуется быстрая разработка каких-то
+несложных устройств. И при наличии готовой процессорной платы, возможно
+в очень быстрые сроки разработать и изготовить необходимую обвязку в
+виде платы расширения.</p>
+<p>Впоследствии появилась идея, после окончательной отладки, выложить
+исходники проекта в открытый доступ, а также организовать производство
+небольшой партии отладок для продажи. Ориентировочная стоимость готовой
+платы составит около 1000 р, что сопоставимо с примитивной Arduino.</p>
+<p>[caption id=&quot;attachment_519&quot; align=&quot;aligncenter&quot; width=&quot;600&quot;
+caption=&quot;Maple-совместимая плата MooBoard&quot;]<a class="reference external" href="/uploads/2012/01/IMAG0124_sm.jpg"><img alt="Maple-совместимая плата MooBoard" src="/uploads/2012/01/IMAG0124_sm-600x359.jpg" /></a>[/caption]</p>
+<p><strong>Технические характеристики:</strong></p>
+<ul class="simple">
+<li>Процессор STM32F103VB в корпусе LQFP100, также возможна установка
+более серьезных процессоров из серий F105, F107;</li>
+<li>Частота 72 МГц;</li>
+<li>Объем памяти от: FLASH 128 Kb, RAM 20 Kb;</li>
+<li>Интерфейсы (для F103): 2xSPI, 2xI2C, 3xUSART, USB, CAN, 80xGPIO, ADC
+16 каналов;</li>
+<li>Питание от USB или от внешнего источника через стабилизатор 3.3 В;</li>
+<li>Полная программная совместимость с Maple - возможность
+программирования и прошивки.</li>
+</ul>
+<p>Интересует заинтересованность людей в подобной отладочной плате, купили
+бы вы такую, если да, то за сколько и в какой комплектации?</p>
+</div>
+</div>
+</div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/tag/sredstva-otladki.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="/">Archives</a>
+                <li><a href="/tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="/category/android.html">Android</a></li>
+                <li><a href="/category/elektrotekhnika.html">Электротехника</a></li>
+                <li><a href="/category/linux.html">Linux</a></li>
+                <li><a href="/category/mikrokontrollery.html">Микроконтроллеры</a></li>
+                <li><a href="/category/mikrokontrollery-elektrotekhnika.html">Микроконтроллеры, Электротехника</a></li>
+                <li><a href="/category/mikrokontrollery-proekty.html">Микроконтроллеры, Проекты</a></li>
+                <li><a href="/category/mikrokontrollery-programmirovanie.html">Микроконтроллеры, Программирование</a></li>
+                <li><a href="/category/nauka-i-tekhnika.html">Наука и техника</a></li>
+                <li><a href="/category/proekty.html">Проекты</a></li>
+                <li><a href="/category/programmirovanie.html">Программирование</a></li>
+                <li><a href="/category/raznoe.html">Разное</a></li>
+                <li><a href="/category/sobytiia.html">События</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="http://getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="">Современные Электронные Технологии</a> &copy; Pavel V. Gololobov 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>
